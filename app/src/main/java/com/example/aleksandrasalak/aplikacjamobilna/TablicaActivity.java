@@ -21,10 +21,14 @@ public class TablicaActivity extends AppCompatActivity {
 
     }
 
+
+
     public void wyloguj(View view){
         editor.putString(TOKEN, "Brak");
         editor.apply();
-        startActivity(new Intent(this,TablicaActivity.class));
+       // finish();
+        startActivity(new Intent(this,MainActivity.class));
+        finish();
     }
 
 }
