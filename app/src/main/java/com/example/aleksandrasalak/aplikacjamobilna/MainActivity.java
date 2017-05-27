@@ -7,32 +7,32 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
-import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
     Serwer serwer;
+    HashMap<String, String> parametryZapytaniaPOST;
+    static final String TOKEN = "com.example.arek.TOKEN";
+
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
-    static final String TOKEN = "com.example.arek.TOKEN";
-    Intent tablicaActivity;
+
     static final String AUTORYZACJA_URL="http://enecio.heliohost.org/autoryzuj.php/";
     static final String REJESTRACJA_URL="http://enecio.heliohost.org/rejestracja.php/";
     static final String LOGOWANIE_URL="http://enecio.heliohost.org/logowanie.php/";
-    HashMap<String, String> hr;
-    // Na pocatku zycia aktywnosci
+
+    Intent tablicaActivity;
+
+    // Na poczatku zycia aktywnosci
     @Override
-
-
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.empty);
 
         // Uzyskujemy dostep do preferencji
         sharedPref = getSharedPreferences("DANE", Context.MODE_PRIVATE);
@@ -45,13 +45,13 @@ public class MainActivity extends AppCompatActivity {
         if(!ustawionyToken.equals("Brak")){
 
             // Jesli TOKEN jest zapisany tworzymy mape do zapytania POST do serwera
-            hr = new HashMap<String, String>();
+            parametryZapytaniaPOST = new HashMap<String, String>();
 
             // Ustawiamy parametr kod - jest to wspomniany juz TOKEN
-            hr.put("kod",ustawionyToken);
-            Log.d("logik", "%%"+ustawionyToken+"%%");
+            parametryZapytaniaPOST.put("kod",ustawionyToken);
+
             // Tworzymy obiekt Serwera - umożliwii on nam odpytanie zdalnego serwera o to czy uzytkownik ma konto
-            serwer = new Serwer(MainActivity.this,AUTORYZACJA_URL,hr);
+            serwer = new Serwer(MainActivity.this,AUTORYZACJA_URL, parametryZapytaniaPOST);
 
             String wynikAutoryzacji="0";
             try {
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            Log.d("logik", "&&"+wynikAutoryzacji+"&&");
 
             // Sprawdzamy czy uzytkownik ma autoryzacje do korzystania z aplikacji
             if(wynikAutoryzacji.equals("1")) {
@@ -98,14 +97,14 @@ public class MainActivity extends AppCompatActivity {
                 // W przypadku nacisniecia przycisku logowania
 
                 // tworzymy mape wykorzystywana do zapytania POST do serwera
-                hr = new HashMap<String, String>();
+                parametryZapytaniaPOST = new HashMap<String, String>();
 
                 // Ustawiamy parametr loginu i hasla uzytkownika
-                hr.put("nazwa",login);
-                hr.put("haslo",hasloPodane1);
+                parametryZapytaniaPOST.put("nazwa",login);
+                parametryZapytaniaPOST.put("haslo",hasloPodane1);
 
                 // Tworzymy obiekt serwera umozliwiajacy logowanie
-                serwer = new Serwer(MainActivity.this,LOGOWANIE_URL,hr);
+                serwer = new Serwer(MainActivity.this,LOGOWANIE_URL, parametryZapytaniaPOST);
 
                 // Wysylamy zapytanie o TOKEN
                 try {
@@ -121,16 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // Jezeli format tokenu jest nieodpowiedni, na serwerze wystapil blad lub
                     // uzytkownik nie posiada konta
-                    new AlertDialog.Builder(this)
-                            .setTitle("Blad")
-                            .setMessage("Nie posiadasz konta, zarejestruj je!")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-
+                    pokazAlert("Blad","Nie posiadasz konta, wpierw musisz je utworzyc!");
                 }else {
 
                     // Gdy format tokenu jest poprawny ustawiamy go w preferencjach
@@ -156,14 +146,14 @@ public class MainActivity extends AppCompatActivity {
                     if(loginPoprawny){
 
                         // tworzymy mape wykorzystywana do zapytania POST do serwera
-                        hr = new HashMap<String, String>();
+                        parametryZapytaniaPOST = new HashMap<String, String>();
 
                         // Ustawiamy parametr loginu i hasla uzytkownika
-                        hr.put("nazwa",login);
-                        hr.put("haslo",hasloPodane1);
+                        parametryZapytaniaPOST.put("nazwa",login);
+                        parametryZapytaniaPOST.put("haslo",hasloPodane1);
 
                         // Tworzymy obiekt serwera umozliwiajacy rejestracje
-                        serwer = new Serwer(MainActivity.this,REJESTRACJA_URL,hr);
+                        serwer = new Serwer(MainActivity.this,REJESTRACJA_URL, parametryZapytaniaPOST);
 
                         // Wysylamy zapytanie o to by dodac uzytkownika
                         try {
@@ -178,16 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
                             // Jezeli format tokenu jest nieodpowiedni, na serwerze wystapil blad lub
                             // ktos inny posiada juz wprowadzony login
-                            new AlertDialog.Builder(this)
-                                    .setTitle("Blad")
-                                    .setMessage("Ten login jest juz zajety!")
-                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    })
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .show();
-
+                            pokazAlert("Blad","Ten login jest juz zajety!");
                         }else {
 
                             // Gdy format tokenu jest poprawny ustawiamy go w preferencjach
@@ -199,35 +180,27 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(tablicaActivity);
                         }
                     }else{
-                        new AlertDialog.Builder(this)
-                                .setTitle("Podany login jest nie poprawny")
-                                .setMessage("Login powinien skladac sie ze znakow alfanumerycznych")
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
-
+                        pokazAlert("Podany login jest nie poprawny","Login powinien skladac sie ze znakow alfanumerycznych");
                     }
                 }else{
-                    new AlertDialog.Builder(this)
-                            .setTitle("Podano dwa rozne hasla")
-                            .setMessage("Jako haslo wprowadz dwa identyczne ciagi znakow")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-
+                    pokazAlert("Podano dwa rozne hasla","Jako haslo wprowadz dwa identyczne ciagi znakow");
 
                 }
                 break;
         }
     }
 
-
+public void pokazAlert(String temat,String tresc){
+    new AlertDialog.Builder(this)
+            .setTitle(temat)
+            .setMessage(tresc)
+            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            })
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .show();
+}
 
 
 
@@ -252,13 +225,12 @@ public class MainActivity extends AppCompatActivity {
         if(!ustawionyToken.equals("Brak")){
 
             // Jesli TOKEN jest zapisany tworzymy mape do zapytania POST do serwera
-            hr = new HashMap<String, String>();
+            parametryZapytaniaPOST = new HashMap<String, String>();
 
             // Ustawiamy parametr kod - jest to wspomniany juz TOKEN
-            hr.put("kod",ustawionyToken);
-            Log.d("logik", "%%"+ustawionyToken+"%%");
+            parametryZapytaniaPOST.put("kod",ustawionyToken);
             // Tworzymy obiekt Serwera - umożliwii on nam odpytanie zdalnego serwera o to czy uzytkownik ma konto
-            serwer = new Serwer(MainActivity.this,AUTORYZACJA_URL,hr);
+            serwer = new Serwer(MainActivity.this,AUTORYZACJA_URL, parametryZapytaniaPOST);
 
             String wynikAutoryzacji="0";
             try {
@@ -271,7 +243,6 @@ public class MainActivity extends AppCompatActivity {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            Log.d("logik", "&&"+wynikAutoryzacji+"&&");
 
             // Sprawdzamy czy uzytkownik ma autoryzacje do korzystania z aplikacji
             if(wynikAutoryzacji.equals("1")) {
