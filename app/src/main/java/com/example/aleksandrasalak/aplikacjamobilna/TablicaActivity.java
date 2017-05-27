@@ -48,6 +48,7 @@ public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.I
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tablica);
 
+
         sharedPref = getSharedPreferences("DANE", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
 
