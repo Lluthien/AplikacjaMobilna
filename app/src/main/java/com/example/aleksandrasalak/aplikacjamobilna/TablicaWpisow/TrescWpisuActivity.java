@@ -1,8 +1,10 @@
-package com.example.aleksandrasalak.aplikacjamobilna;
+package com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.aleksandrasalak.aplikacjamobilna.R;
 
 public class TrescWpisuActivity extends AppCompatActivity {
     private static final String BUNDLE_EXTRAS = "BUNDLE_EXTRAS";

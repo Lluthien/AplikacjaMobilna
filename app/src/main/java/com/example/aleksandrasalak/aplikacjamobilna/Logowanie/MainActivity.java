@@ -1,4 +1,4 @@
-package com.example.aleksandrasalak.aplikacjamobilna;
+package com.example.aleksandrasalak.aplikacjamobilna.Logowanie;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -7,9 +7,12 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.aleksandrasalak.aplikacjamobilna.R;
+import com.example.aleksandrasalak.aplikacjamobilna.Pozostale.Serwer;
+import com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow.TablicaActivity;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;

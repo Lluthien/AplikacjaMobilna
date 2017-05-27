@@ -1,4 +1,4 @@
-package com.example.aleksandrasalak.aplikacjamobilna;
+package com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow;
 
 
 import android.util.Log;
@@ -21,7 +21,7 @@ public class ZarzadcaListy {
             try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
-                ByteArrayInputStream input = new ByteArrayInputStream(wynikWpisy.getBytes("UTF-8"));
+                ByteArrayInputStream input = new ByteArrayInputStream(wynikWpisy.replaceAll("&","%1%").getBytes("UTF-8"));
                 doc = builder.parse(input);
                 doc.getDocumentElement().normalize();
             } catch (Exception e) {
@@ -49,11 +49,13 @@ public class ZarzadcaListy {
                     temat = eElement
                             .getElementsByTagName("temat")
                             .item(0)
-                            .getTextContent();
+                            .getTextContent()
+                            .replaceAll("%1%","&");
                     tresc = eElement
                             .getElementsByTagName("tresc")
                             .item(0)
-                            .getTextContent();
+                            .getTextContent()
+                            .replaceAll("%1%","&");
                     id = eElement
                             .getElementsByTagName("id")
                             .item(0)
@@ -78,7 +80,7 @@ public class ZarzadcaListy {
             try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
-                ByteArrayInputStream input = new ByteArrayInputStream(wpisXml.getBytes("UTF-8"));
+                ByteArrayInputStream input = new ByteArrayInputStream(wpisXml.replaceAll("&","%1%").getBytes("UTF-8"));
                 doc = builder.parse(input);
                 doc.getDocumentElement().normalize();
             } catch (Exception e) {
@@ -107,11 +109,13 @@ public class ZarzadcaListy {
                 temat = eElement
                         .getElementsByTagName("temat")
                         .item(0)
-                        .getTextContent();
+                        .getTextContent()
+                        .replaceAll("%1%","&");
                 tresc = eElement
                         .getElementsByTagName("tresc")
                         .item(0)
-                        .getTextContent();
+                        .getTextContent()
+                        .replaceAll("%1%","&");
                 id = eElement
                         .getElementsByTagName("id")
                         .item(0)

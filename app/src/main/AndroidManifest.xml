@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Logowanie.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,12 +19,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TablicaActivity"
+            android:name=".TablicaWpisow.TablicaActivity"
             android:theme="@style/AppTheme.NoActionBar">
             >
         </activity>
-        <activity android:name=".TrescWpisuActivity" />
-        <activity android:name=".DodajWpisActivity"></activity>
+        <activity android:name=".TablicaWpisow.TrescWpisuActivity" />
+        <activity android:name=".TablicaWpisow.DodajWpisActivity" />
+        <activity android:name=".Portfel.PortfelActivity" />
+        <activity android:name=".Pozostale.AutorzyActivity" />
+        <activity
+            android:name=".Pozostale.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>

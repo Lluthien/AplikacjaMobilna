@@ -1,4 +1,4 @@
-package com.example.aleksandrasalak.aplikacjamobilna;
+package com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,22 +6,32 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.OvershootInterpolator;
+
+import com.example.aleksandrasalak.aplikacjamobilna.Pozostale.AutorzyActivity;
+import com.example.aleksandrasalak.aplikacjamobilna.Logowanie.MainActivity;
+import com.example.aleksandrasalak.aplikacjamobilna.Portfel.PortfelActivity;
+import com.example.aleksandrasalak.aplikacjamobilna.R;
+import com.example.aleksandrasalak.aplikacjamobilna.Pozostale.Serwer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.ItemClickCallback{
+public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.ItemClickCallback, NavigationView.OnNavigationItemSelectedListener{
     private static final String BUNDLE_EXTRAS = "BUNDLE_EXTRAS";
     private static final String EXTRA_TYTUL = "EXTRA_TYTUL";
     private static final String EXTRA_TRESC = "EXTRA_TRESC";
@@ -55,6 +65,18 @@ public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.I
         // Ustawienie toolbara
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Menu boczne
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
 
         parametryZapytaniaPOST = new HashMap<String, String>();
 
@@ -192,6 +214,38 @@ public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.I
         extras.putString(EXTRA_DATA,wpis.pobierzDate());
         in.putExtra(BUNDLE_EXTRAS, extras);
         startActivity(in);
+    }
 
+
+
+
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+            Intent portfelIntent = new Intent(this,PortfelActivity.class);
+            startActivity(portfelIntent);
+        } else if (id == R.id.nav_slideshow) {
+            Intent autorzyIntent = new Intent(this,AutorzyActivity.class);
+            startActivity(autorzyIntent);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

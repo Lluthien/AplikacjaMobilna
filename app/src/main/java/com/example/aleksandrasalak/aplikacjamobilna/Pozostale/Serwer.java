@@ -1,4 +1,4 @@
-package com.example.aleksandrasalak.aplikacjamobilna;
+package com.example.aleksandrasalak.aplikacjamobilna.Pozostale;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -52,6 +52,7 @@ public class Serwer extends AsyncTask<Void, Void, String>{
         String odpowiedzStr = "";
         try {
             url = new URL(urlRzadaniaStr);
+
             HttpURLConnection polaczenie = (HttpURLConnection) url.openConnection();
             polaczenie.setReadTimeout(15000);
             polaczenie.setConnectTimeout(15000);
@@ -99,7 +100,10 @@ public class Serwer extends AsyncTask<Void, Void, String>{
             parametry.append("=");
             parametry.append(URLEncoder.encode(para.getValue(), "UTF-8"));
         }
+
         return parametry.toString();
     }
+
+
 
 }

@@ -1,4 +1,4 @@
-package com.example.aleksandrasalak.aplikacjamobilna;
+package com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow;
 
 public class Wpis {
     private String tresc;
