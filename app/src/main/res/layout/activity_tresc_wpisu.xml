@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/temat1"
+        android:layout_width="match_parent"
+        android:fontFamily="sans-serif"
+        android:textColor="@android:color/black"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tresc1"
+        android:layout_width="match_parent"
+        android:fontFamily="sans-serif"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="NOOOOOO" />
+
+    <TextView
+        android:id="@+id/data1"
+        android:layout_width="match_parent"
+        android:fontFamily="sans-serif"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Data x.x.x:" />
+
+    <TextView
+        android:id="@+id/autor1"
+        android:layout_width="match_parent"
+        android:fontFamily="sans-serif"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Autor" />
+</LinearLayout>

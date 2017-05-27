@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.arek.testbasic.MainActivity">
     <item
-        android:id="@+id/ustawienia"
+        android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="Ustawienia"
+        android:title="@string/action_settings"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/costam"
+        android:id="@+id/wylogujOption"
         android:orderInCategory="100"
-        android:title="No takiesecos"
+        android:title="Wyloguj"
         app:showAsAction="never" />
 
 

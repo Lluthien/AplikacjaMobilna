@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.aleksandrasalak.aplikacjamobilna">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -17,9 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TablicaActivity"
+        <activity
+            android:name=".TablicaActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            ></activity>
+            >
+        </activity>
+        <activity android:name=".TrescWpisuActivity" />
+        <activity android:name=".DodajWpisActivity"></activity>
     </application>
 
 </manifest>

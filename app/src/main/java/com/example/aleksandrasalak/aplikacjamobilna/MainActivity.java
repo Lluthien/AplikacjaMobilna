@@ -206,13 +206,10 @@ public void pokazAlert(String temat,String tresc){
 
 
 
-
-
-
     protected void onResume(){
         super.onResume();
 
-        setContentView(R.layout.empty);
+        //setContentView(R.layout.empty);
 
         // Uzyskujemy dostep do preferencji
         sharedPref = getSharedPreferences("DANE", Context.MODE_PRIVATE);
