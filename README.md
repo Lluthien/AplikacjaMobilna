@@ -5,8 +5,12 @@ Aplikacja pozwala również na kontrole swoich wydatków dzięki wirtualnemu "po
 
 Funkcje dostępne są po zarejestrowaniu się do aplikacji.
 
+# Ekran startowy
 
-![alt text](Users/aleksandrasalak/ekran.png)
+![test image size](/ekran.png){:height="800px" width="400px"}
+
+Ekran startowy pozwalający na rejestrację lub zalogowanie się do aplikacji.
+
 # Autorzy
 Aleksandra Salak
 
