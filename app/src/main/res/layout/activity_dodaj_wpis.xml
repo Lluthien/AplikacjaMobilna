@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/tlo2"
     tools:context="com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow.DodajWpisActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -15,7 +16,7 @@
             android:id="@+id/toolbar2"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@android:color/holo_blue_light"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -32,28 +33,44 @@
 
         <EditText
             android:id="@+id/tytulEditText"
-            android:layout_width="366dp"
+            android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="38dp"
+            android:background="@drawable/ciemniej"
             android:hint="tytul"
             android:maxLength="150"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text=""
+            android:textColor="@android:color/white"
+            android:textColorHighlight="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textCursorDrawable="@android:color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/trescEditText"
-            android:layout_width="368dp"
-            android:layout_height="141dp"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/ciemniej"
             android:hint="tresc"
             android:maxLength="500"
-            android:text=""
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColorHint="@android:color/white"
+            android:textCursorDrawable="@android:color/white"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tytulEditText" />
@@ -62,10 +79,14 @@
             android:id="@+id/dodajWpisBtn"
             android:layout_width="142dp"
             android:layout_height="55dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/dodaj"
             android:onClick="dodajWpis"
-            android:text="Dodaj"
+            android:paddingRight="10dp"
+            android:scaleX="1"
+            android:scaleY="0.6"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trescEditText" />
 
@@ -73,15 +94,18 @@
             android:id="@+id/anulujBtn"
             android:layout_width="142dp"
             android:layout_height="55dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginEnd="47dp"
+            android:layout_marginRight="21dp"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/anuluj"
             android:onClick="anuluj"
-            android:text="Anuluj"
+            android:paddingLeft="10dp"
+            android:scaleX="1"
+            android:scaleY="0.6"
             app:layout_constraintRight_toLeftOf="@+id/dodajWpisBtn"
             app:layout_constraintTop_toBottomOf="@+id/trescEditText" />
 
     </android.support.constraint.ConstraintLayout>
-
 
 
 </android.support.design.widget.CoordinatorLayout>

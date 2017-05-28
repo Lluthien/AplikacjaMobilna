@@ -65,14 +65,14 @@
             android:id="@+id/zalogujBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/hasloEdit"
             android:layout_marginTop="76dp"
             android:background="@drawable/loguj"
             android:onClick="obslugaZdarzenAktywnosciGlownej"
             android:scaleX="0.5"
-            android:scaleY="0.4"
-            android:layout_alignTop="@+id/hasloEdit"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:scaleY="0.4" />
 
 
         <EditText
@@ -115,10 +115,11 @@
             android:id="@+id/imageView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/logo"
-            android:layout_marginBottom="15dp"
             android:layout_above="@+id/loginEdit"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="37dp"
+            app:srcCompat="@drawable/logo" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

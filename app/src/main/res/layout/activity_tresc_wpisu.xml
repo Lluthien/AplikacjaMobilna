@@ -1,36 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/tlo2"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/temat1"
         android:layout_width="match_parent"
-        android:fontFamily="sans-serif"
-        android:textColor="@android:color/black"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:fontFamily="sans-serif"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textCursorDrawable="@android:color/white" />
 
     <TextView
         android:id="@+id/tresc1"
         android:layout_width="match_parent"
-        android:fontFamily="sans-serif"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="NOOOOOO" />
+        android:fontFamily="sans-serif"
+        android:text="NOOOOOO"
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textColorLink="@android:color/white"
+        android:textCursorDrawable="@android:color/white" />
 
     <TextView
         android:id="@+id/data1"
         android:layout_width="match_parent"
-        android:fontFamily="sans-serif"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Data x.x.x:" />
+        android:fontFamily="sans-serif"
+        android:text="Data x.x.x:"
+        android:textColor="@android:color/white"
+        android:textCursorDrawable="@android:color/white" />
 
     <TextView
         android:id="@+id/autor1"
         android:layout_width="match_parent"
-        android:fontFamily="sans-serif"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Autor" />
+        android:fontFamily="sans-serif"
+        android:text="Autor"
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@android:color/white"
+        android:textCursorDrawable="@android:color/white" />
 </LinearLayout>

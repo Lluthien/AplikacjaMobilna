@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:clickable="true"
+    android:id="@+id/kontener"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/tlo2"
+    android:clickable="true"
+    android:contextClickable="true"
+    android:elevation="2dp"
     android:orientation="vertical"
     android:paddingBottom="5dp"
-    android:contextClickable="true"
-    android:paddingTop="5dp"
-    android:elevation="2dp"
-    android:id="@+id/kontener"
-    android:background="@drawable/background_state_drawable"
     android:paddingLeft="15dp"
-    >
+    android:paddingTop="5dp">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cardView"
@@ -22,48 +21,59 @@
         card_view:cardCornerRadius="4dp"
 
         >
+
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:elevation="2dp"
 
-            >
+            android:background="@color/cardview_dark_background"
+            android:elevation="2dp"
+            android:orientation="vertical"
+            android:paddingTop="5dp">
 
             <TextView
                 android:id="@+id/temat"
                 android:layout_width="match_parent"
-                android:fontFamily="sans-serif"
-                android:textColor="@android:color/black"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
 
-                android:layout_weight="1" />
+                android:paddingLeft="10dp"
+                android:textColor="@android:color/white"
+                android:textCursorDrawable="@android:color/white" />
 
             <TextView
                 android:id="@+id/tresc"
                 android:layout_width="match_parent"
-                android:fontFamily="sans-serif"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="NOOOOOO" />
+                android:fontFamily="sans-serif"
+                android:paddingLeft="10dp"
+                android:text="NOOOOOO"
+                android:textColor="@android:color/white"
+                android:textCursorDrawable="@android:color/white" />
 
             <TextView
                 android:id="@+id/data"
                 android:layout_width="match_parent"
-                android:fontFamily="sans-serif"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Data x.x.x:" />
+                android:fontFamily="sans-serif"
+                android:paddingLeft="10dp"
+                android:text="Data x.x.x:"
+                android:textColor="@android:color/white"
+                android:textCursorDrawable="@android:color/white" />
 
             <TextView
                 android:id="@+id/autor"
                 android:layout_width="match_parent"
-                android:fontFamily="sans-serif"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Autor" />
+                android:fontFamily="sans-serif"
+                android:paddingLeft="10dp"
+                android:text="Autor"
+                android:textColor="@android:color/white"
+                android:textCursorDrawable="@android:color/white" />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
