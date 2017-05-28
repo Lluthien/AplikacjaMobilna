@@ -48,7 +48,6 @@ public class PortfelActivity extends AppCompatActivity
         editor = sharedPref.edit();
 
 
-
         // Pobranie referencji do wiszacego nad lista plusika
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab1);
 
@@ -65,9 +64,6 @@ public class PortfelActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
-
-
     }
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
