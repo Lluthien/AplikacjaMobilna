@@ -6,7 +6,7 @@ Aplikacja pozwala również na kontrole swoich wydatków dzięki wirtualnemu "po
 Funkcje dostępne są po zarejestrowaniu się do aplikacji.
 
 # Ekran startowy
-![alt text](https://github.com/Lluthien/AplikacjaMobilna/blob/master/ekran.png)
+![alt text](/ekran.png)
 # Autorzy
 Aleksandra Salak
 
