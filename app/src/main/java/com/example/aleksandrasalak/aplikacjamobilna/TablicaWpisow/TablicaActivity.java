@@ -170,6 +170,8 @@ public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.I
                 Snackbar.make(findViewById(R.id.fab), "Anulowano lub brak autoryzacji", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
+        } else if(requestCode==2){
+
         }
     }//onActivityResult
 
@@ -234,14 +236,19 @@ public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.I
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+
+
+
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            // Nic nie robi - przycisk tej aktwnosci
         } else if (id == R.id.nav_gallery) {
-            Intent portfelIntent = new Intent(this,PortfelActivity.class);
-            startActivity(portfelIntent);
+            int requestCode = 2;
+            Intent portfelIntent = new Intent(TablicaActivity.this,PortfelActivity.class);
+            startActivityForResult(portfelIntent,requestCode);
         } else if (id == R.id.nav_slideshow) {
-            Intent autorzyIntent = new Intent(this,AutorzyActivity.class);
-            startActivity(autorzyIntent);
+            int requestCode = 2;
+            Intent portfelIntent = new Intent(TablicaActivity.this,PortfelActivity.class);
+            startActivityForResult(portfelIntent,requestCode);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

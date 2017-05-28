@@ -1,6 +1,11 @@
 package com.example.aleksandrasalak.aplikacjamobilna.Portfel;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -9,11 +14,19 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.example.aleksandrasalak.aplikacjamobilna.Logowanie.MainActivity;
+import com.example.aleksandrasalak.aplikacjamobilna.Pozostale.AutorzyActivity;
 import com.example.aleksandrasalak.aplikacjamobilna.R;
+import com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow.TablicaActivity;
 
 public class PortfelActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    static final String TOKEN = "com.example.arek.TOKEN";
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +43,29 @@ public class PortfelActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view1);
         navigationView.setNavigationItemSelectedListener(this);
+
+        sharedPref = getSharedPreferences("DANE", Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+
+
+
+        // Pobranie referencji do wiszacego nad lista plusika
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab1);
+
+        // Przypisanie plusikowi zdarzenia onClick
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+             //   Intent dodawaniePozycjiPortfela = new Intent(PortfelActivity.this,DodajPozycjePortfelaActivity.class);
+             //   int requestCode = 1;
+             //   startActivityForResult(dodawaniePozycjiPortfela,requestCode);
+
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
 
 
     }
@@ -61,6 +97,14 @@ public class PortfelActivity extends AppCompatActivity
             return true;
         }
 
+        if (id == R.id.wylogujOption){
+            editor.putString(TOKEN, "Brak");
+            editor.apply();
+            // finish();
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -69,16 +113,26 @@ public class PortfelActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            finish();
         } else if (id == R.id.nav_gallery) {
-
+            //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
+           // drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_slideshow) {
-
+            int requestCode = 3;
+            Intent autorzyIntent = new Intent(PortfelActivity.this,AutorzyActivity.class);
+            startActivityForResult(autorzyIntent,requestCode);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
-        drawer.closeDrawer(GravityCompat.START);
+
+
         return true;
     }
 
-}
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==3){
+            finish();
+        }
+
+    }
+
+    }
