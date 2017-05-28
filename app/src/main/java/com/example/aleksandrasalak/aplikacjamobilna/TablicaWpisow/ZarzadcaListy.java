@@ -1,6 +1,7 @@
 package com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow;
 
 
+import android.text.Html;
 import android.util.Log;
 
 import org.w3c.dom.*;
@@ -61,7 +62,9 @@ public class ZarzadcaListy {
                             .item(0)
                             .getTextContent();
                 }
-                listaWpisow.add(new Wpis(temat, tresc, uzytkownik, data, id));
+
+                listaWpisow.add(new Wpis(Html.fromHtml(temat).toString(), Html.fromHtml(tresc).toString(),
+                                uzytkownik, data, id));
             }
 
             return listaWpisow;
@@ -124,7 +127,7 @@ public class ZarzadcaListy {
             Log.d("logik", "tematDodawany"+temat);
             Log.d("logik", "u zarzadcy w liscie temat 1"+listaWpisow.get(0).pobierzTemat());
 
-            listaWpisow.add(0, new Wpis(temat, tresc, uzytkownik, data, id));
+            listaWpisow.add(0, new Wpis(Html.fromHtml(temat).toString(), Html.fromHtml(tresc).toString(), uzytkownik, data, id));
             return true;
         }else{
             Log.d("logik", "zarzadca dostal pusty");

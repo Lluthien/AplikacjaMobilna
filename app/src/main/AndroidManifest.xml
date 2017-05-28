@@ -23,10 +23,23 @@
             android:theme="@style/AppTheme.NoActionBar">
             >
         </activity>
-        <activity android:name=".TablicaWpisow.TrescWpisuActivity" />
-        <activity android:name=".TablicaWpisow.DodajWpisActivity" />
-        <activity android:name=".Portfel.PortfelActivity" />
-        <activity android:name=".Pozostale.AutorzyActivity" />
+        <activity
+            android:name=".TablicaWpisow.TrescWpisuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".TablicaWpisow.DodajWpisActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".Portfel.PortfelActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".Pozostale.AutorzyActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".Pozostale.SettingsActivity"
             android:label="@string/title_activity_settings"></activity>
