@@ -9,6 +9,8 @@ Funkcje dostępne są po zarejestrowaniu się do aplikacji.
 ![alt text](/ekran.png)
 
 <img src="/ekran.png" alt="alt text" width="400px" height="800px">
+![test image size](/ekran.png){:height="800px" width="400px"}
+
 # Autorzy
 Aleksandra Salak
 
