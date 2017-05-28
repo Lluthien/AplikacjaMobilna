@@ -16,9 +16,9 @@ Funkcjonalności :
 * Logowanie
 * Rejestracja
 
-# Ekran startowy
+# Ekran wpisów
 
-![test image size](/ekran1.png){:height="800px" width="400px"}
+![test image size](/ekran3.png){:height="800px" width="400px"}
 
 Ekran na którym wyświetlają się wpisy wszystkich użytkowników. Każdy wpis zawieta temat, opis, datę dodania oraz nazwę użytkownika, który dokonał wpisu. Dodanie własnego wpisu następuje po naciśnięciu znaku plus znajdującego się w prawym dolnym rogu.
 
@@ -26,6 +26,17 @@ Funkcjonalności :
 
 * Przeglądanie wpisów
 * Dodanie wpisu
+
+# Ekran dodawania wpisów
+
+![test image size](/ekran2.png){:height="800px" width="400px"}
+
+Aktywność dzięki której użytkownik ma możliwość dodawania własnych wpisów na temat dowolnego produktu. Sekcja składa się z dwóch części : tytół oraz opis.
+
+Funkcjonalności :
+
+* Dodanie wpisu
+* Wyjście do poprzedniej aktywności
 
 # Autorzy
 Aleksandra Salak
