@@ -8,7 +8,7 @@ Funkcje dostępne są po zarejestrowaniu się do aplikacji.
 # Ekran startowy
 ![alt text](/ekran.png)
 
-<img src="/ekran.png" alt="alt text" width="200px" height="300px">
+<img src="/ekran.png" alt="alt text" width="400px" height="600px">
 # Autorzy
 Aleksandra Salak
 
