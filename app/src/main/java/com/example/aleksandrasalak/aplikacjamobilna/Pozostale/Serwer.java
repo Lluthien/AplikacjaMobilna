@@ -1,8 +1,15 @@
 package com.example.aleksandrasalak.aplikacjamobilna.Pozostale;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+
+import com.example.aleksandrasalak.aplikacjamobilna.R;
+import com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow.TablicaActivity;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -22,27 +29,31 @@ public class Serwer extends AsyncTask<Void, Void, String>{
     private HashMap<String, String> postParametry;
     private Context contextMain;
 
+
     public Serwer(Context context, String url, HashMap<String, String> postDataParams){
         contextMain=context;
         this.url=url;
         this.postParametry=postDataParams;
+        pr = new ProgressDialog(context);
     }
 
+
     protected String doInBackground(Void... voids){
+
         String wynik = wykonajZapytaniePOST(url,postParametry);
         return wynik;
     }
 
     protected void onPreExecute() {
-        pr = new ProgressDialog(contextMain);
-        pr.setTitle("Zaczekaj");
-        pr.setMessage("Pobieram dane z serwera");
-        pr.setCancelable(false);
+
+       // pr = ProgressDialog.show(contextMain, "dialog title","dialog message", true);
+        pr.setMessage("Doing something, please wait.");
         pr.show();
     }
 
     @Override
     protected void onPostExecute(String wynik) {
+        super.onPostExecute(wynik);
         pr.dismiss();
     }
 

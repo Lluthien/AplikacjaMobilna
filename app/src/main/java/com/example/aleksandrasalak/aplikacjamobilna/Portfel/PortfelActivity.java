@@ -18,8 +18,8 @@ import android.view.View;
 
 import com.example.aleksandrasalak.aplikacjamobilna.Logowanie.MainActivity;
 import com.example.aleksandrasalak.aplikacjamobilna.Pozostale.AutorzyActivity;
+import com.example.aleksandrasalak.aplikacjamobilna.Pozostale.SettingsActivity;
 import com.example.aleksandrasalak.aplikacjamobilna.R;
-import com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow.TablicaActivity;
 
 public class PortfelActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -94,6 +94,8 @@ public class PortfelActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent settings = new Intent(this, SettingsActivity.class);
+            startActivityForResult(settings,15);
             return true;
         }
 
@@ -112,12 +114,12 @@ public class PortfelActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_tablica) {
             finish();
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_portfel) {
             //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
            // drawer.closeDrawer(GravityCompat.START);
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.autorzy) {
             int requestCode = 3;
             Intent autorzyIntent = new Intent(PortfelActivity.this,AutorzyActivity.class);
             startActivityForResult(autorzyIntent,requestCode);

@@ -8,6 +8,7 @@ import org.w3c.dom.*;
 import javax.xml.parsers.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ZarzadcaListy {
 
@@ -124,8 +125,6 @@ public class ZarzadcaListy {
                         .item(0)
                         .getTextContent();
             }
-            Log.d("logik", "tematDodawany"+temat);
-            Log.d("logik", "u zarzadcy w liscie temat 1"+listaWpisow.get(0).pobierzTemat());
 
             listaWpisow.add(0, new Wpis(Html.fromHtml(temat).toString(), Html.fromHtml(tresc).toString(), uzytkownik, data, id));
             return true;
@@ -136,6 +135,17 @@ public class ZarzadcaListy {
         }
 
         //adapter.notifyItemInserted(1);
+    }
+
+    public void odfiltruj(String wzor){
+
+        for (Iterator<Wpis> iterator = listaWpisow.iterator(); iterator.hasNext(); ) {
+            Wpis wpis = iterator.next();
+            if(wpis.pobierzTemat().contains(wzor) || wpis.pobierzTresc().contains(wzor) || wpis.pobierzAutora().contains(wzor))
+            {}else
+                iterator.remove();
+        }
+
     }
 
 }

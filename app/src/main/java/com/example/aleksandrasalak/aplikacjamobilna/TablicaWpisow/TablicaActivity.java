@@ -1,7 +1,9 @@
 package com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,10 +22,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.OvershootInterpolator;
+import android.widget.EditText;
 
-import com.example.aleksandrasalak.aplikacjamobilna.Pozostale.AutorzyActivity;
 import com.example.aleksandrasalak.aplikacjamobilna.Logowanie.MainActivity;
 import com.example.aleksandrasalak.aplikacjamobilna.Portfel.PortfelActivity;
+import com.example.aleksandrasalak.aplikacjamobilna.Pozostale.SettingsActivity;
 import com.example.aleksandrasalak.aplikacjamobilna.R;
 import com.example.aleksandrasalak.aplikacjamobilna.Pozostale.Serwer;
 
@@ -31,7 +35,8 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.ItemClickCallback, NavigationView.OnNavigationItemSelectedListener{
+public class TablicaActivity extends AppCompatActivity
+        implements WpisyAdapter.ItemClickCallback, NavigationView.OnNavigationItemSelectedListener{
     private static final String BUNDLE_EXTRAS = "BUNDLE_EXTRAS";
     private static final String EXTRA_TYTUL = "EXTRA_TYTUL";
     private static final String EXTRA_TRESC = "EXTRA_TRESC";
@@ -55,7 +60,12 @@ public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.I
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_tablica);
 
 
@@ -123,8 +133,7 @@ public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.I
 
                 startActivityForResult(dodawanieWpisow,requestCode);
 
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
     }
@@ -178,7 +187,7 @@ public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.I
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_wpisy, menu);
         return true;
     }
 
@@ -191,6 +200,9 @@ public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.I
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent settings = new Intent(this, SettingsActivity.class);
+            startActivityForResult(settings,15);
+
             return true;
         }
 
@@ -201,6 +213,29 @@ public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.I
             startActivity(new Intent(this,MainActivity.class));
             finish();
         }
+        if (id == R.id.szukajOption){
+            AlertDialog.Builder alert = new AlertDialog.Builder(TablicaActivity.this);
+            alert.setTitle("Wyszukiwanie na liscie");
+            alert.setMessage("Wprowadz szukana fraze/nazwe tagu");
+            final EditText input = new EditText(TablicaActivity.this);
+            alert.setView(input);
+            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    komunikator.odfiltruj(input.getText().toString());
+                    adapter.notifyDataSetChanged();
+                    Snackbar.make(findViewById(R.id.fab), "Powyzej wyniki", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    Snackbar.make(findViewById(R.id.fab), "Anulowano wyszukiwanie", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+            alert.show();
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -239,13 +274,13 @@ public class TablicaActivity extends AppCompatActivity implements WpisyAdapter.I
 
 
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_tablica) {
             // Nic nie robi - przycisk tej aktwnosci
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_portfel) {
             int requestCode = 2;
             Intent portfelIntent = new Intent(TablicaActivity.this,PortfelActivity.class);
             startActivityForResult(portfelIntent,requestCode);
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.autorzy) {
             int requestCode = 2;
             Intent portfelIntent = new Intent(TablicaActivity.this,PortfelActivity.class);
             startActivityForResult(portfelIntent,requestCode);
