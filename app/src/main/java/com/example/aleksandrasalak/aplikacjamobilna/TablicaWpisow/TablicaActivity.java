@@ -1,7 +1,6 @@
 package com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,12 +22,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
-
 import com.example.aleksandrasalak.aplikacjamobilna.Logowanie.MainActivity;
 import com.example.aleksandrasalak.aplikacjamobilna.Portfel.PortfelActivity;
 import com.example.aleksandrasalak.aplikacjamobilna.Pozostale.SettingsActivity;
 import com.example.aleksandrasalak.aplikacjamobilna.R;
 import com.example.aleksandrasalak.aplikacjamobilna.Pozostale.Serwer;
+import com.example.aleksandrasalak.aplikacjamobilna.ZawolaniaZwrotne;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,13 +35,14 @@ import java.util.concurrent.ExecutionException;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class TablicaActivity extends AppCompatActivity
-        implements WpisyAdapter.ItemClickCallback, NavigationView.OnNavigationItemSelectedListener{
+        implements WpisyAdapter.ItemClickCallback,
+        NavigationView.OnNavigationItemSelectedListener, ZawolaniaZwrotne{
     private static final String BUNDLE_EXTRAS = "BUNDLE_EXTRAS";
     private static final String EXTRA_TYTUL = "EXTRA_TYTUL";
     private static final String EXTRA_TRESC = "EXTRA_TRESC";
     private static final String EXTRA_DATA = "EXTRA_DATA";
     private static final String EXTRA_AUTOR = "EXTRA_AUTOR";
-
+    MenuItem opcjaEdycjiWmenu;
     static final String TOKEN = "com.example.arek.TOKEN";
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
@@ -90,36 +90,12 @@ public class TablicaActivity extends AppCompatActivity
 
         parametryZapytaniaPOST = new HashMap<String, String>();
 
-        serwer = new Serwer(TablicaActivity.this,POBIERANIE_WPISOW_URL, parametryZapytaniaPOST);
-
-        String wynik="pusty";
-        try {
-            wynik = serwer.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
-        // Uzupelniamy liste wpisow listaWpisow
-
-        komunikator = new ZarzadcaListy();
-        listaWpisow = komunikator.stworzListeWpisow(wynik);
-
-        // Tworzymy adapter z uzupelniona lista wpisow
-        adapter = new WpisyAdapter(this, listaWpisow);
+        serwer = new Serwer(TablicaActivity.this,POBIERANIE_WPISOW_URL, parametryZapytaniaPOST, this, "tp");
 
 
-        // Ustawiamy adapter w elemencie RecyclerView
-        rvContacts.setAdapter(adapter);
-        // Ustawiamy jaki manager chcemy używać
-        // ewentualnosc to GridLayoutManager i StaggeredGridLayoutManager
-        rvContacts.setLayoutManager(new LinearLayoutManager(this));
-        // Ustawiamy jakis element do animowania listy
-        SlideInUpAnimator animator = new SlideInUpAnimator(new OvershootInterpolator(1f));
-        rvContacts.setItemAnimator(animator);
-        adapter.setItemClickCallback(this);
+        serwer.execute();
+
+
 
         // Pobranie referencji do wiszacego nad lista plusika
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -130,10 +106,7 @@ public class TablicaActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent dodawanieWpisow = new Intent(TablicaActivity.this,DodajWpisActivity.class);
                 int requestCode = 1;
-
                 startActivityForResult(dodawanieWpisow,requestCode);
-
-
             }
         });
     }
@@ -149,29 +122,10 @@ public class TablicaActivity extends AppCompatActivity
                 // ZAPYTANIE O NOWY WPIS
                 parametryZapytaniaPOST = new HashMap<String, String>();
                 parametryZapytaniaPOST.put("id",idNowegoWpisu);
-                serwer = new Serwer(TablicaActivity.this,ZNAJDOWANIE_WPISOW_URL, parametryZapytaniaPOST);
+                serwer = new Serwer(TablicaActivity.this,ZNAJDOWANIE_WPISOW_URL, parametryZapytaniaPOST,this,"tz");
 
-                String nowyWpis="";
-                try {
-                    nowyWpis = serwer.execute().get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
+                serwer.execute();
 
-                boolean czyDodano = komunikator.dodajNaListe(nowyWpis);
-
-                if(czyDodano){
-                    adapter.notifyItemInserted(0);
-                    Snackbar.make(findViewById(R.id.fab), "Post zostal dodany", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }else{
-                    Snackbar.make(findViewById(R.id.fab), "Problem z polaczeniem internetowym!", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-
-                //Komunikat o dodaniu wpisu
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -214,26 +168,42 @@ public class TablicaActivity extends AppCompatActivity
             finish();
         }
         if (id == R.id.szukajOption){
-            AlertDialog.Builder alert = new AlertDialog.Builder(TablicaActivity.this);
-            alert.setTitle("Wyszukiwanie na liscie");
-            alert.setMessage("Wprowadz szukana fraze/nazwe tagu");
-            final EditText input = new EditText(TablicaActivity.this);
-            alert.setView(input);
-            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    komunikator.odfiltruj(input.getText().toString());
-                    adapter.notifyDataSetChanged();
-                    Snackbar.make(findViewById(R.id.fab), "Powyzej wyniki", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            });
-            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    Snackbar.make(findViewById(R.id.fab), "Anulowano wyszukiwanie", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            });
-            alert.show();
+            final MenuItem s = item;
+
+            if(item.getTitle().toString().equals("Filtruj")) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(TablicaActivity.this);
+                alert.setTitle("Wyszukiwanie na liscie");
+                alert.setMessage("Wprowadz szukana fraze/nazwe tagu");
+                final EditText input = new EditText(TablicaActivity.this);
+                alert.setView(input);
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        komunikator.odfiltruj(input.getText().toString());
+                        adapter.notifyDataSetChanged();
+                        s.setTitle("Cofnij filtracje");
+                        Snackbar.make(findViewById(R.id.fab), "Powyzej wyniki", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                });
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Snackbar.make(findViewById(R.id.fab), "Anulowano wyszukiwanie", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                });
+                alert.show();
+            }else{
+                parametryZapytaniaPOST = new HashMap<String, String>();
+
+                serwer = new Serwer(TablicaActivity.this,POBIERANIE_WPISOW_URL, parametryZapytaniaPOST,this,"tp2");
+                s.setTitle("Filtruj");
+                serwer.execute();
+
+
+               // odpowiedz w funkcjach zwrotnych
+
+
+            }
         }
 
 
@@ -289,5 +259,73 @@ public class TablicaActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    // Zbedne
+    public void funkcjaZwrotnaMainAutoryzacja(String wynikZserwera) {}
+    public void funkcjaZwrotnaMainLogowanie(String wynikZserwera) {}
+    public void funkcjaZwrotnaMainRejestracja(String wynikZserwera) {}
+
+    @Override
+    public void funkcjaZwrotnaTablicaPobranieWpisow(String wynikZserwera) {
+        RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
+        // Uzupelniamy liste wpisow listaWpisow
+
+        komunikator = new ZarzadcaListy();
+        listaWpisow = komunikator.stworzListeWpisow(wynikZserwera);
+
+        // Tworzymy adapter z uzupelniona lista wpisow
+        adapter = new WpisyAdapter(this, listaWpisow);
+
+        // Ustawiamy adapter w elemencie RecyclerView
+        rvContacts.setAdapter(adapter);
+        // Ustawiamy jaki manager chcemy używać
+        // ewentualnosc to GridLayoutManager i StaggeredGridLayoutManager
+        rvContacts.setLayoutManager(new LinearLayoutManager(this));
+        // Ustawiamy jakis element do animowania listy
+        SlideInUpAnimator animator = new SlideInUpAnimator(new OvershootInterpolator(1f));
+        rvContacts.setItemAnimator(animator);
+        adapter.setItemClickCallback(this);
+
+    }
+    @Override
+    public void funkcjaZwrotnaTablicaZnajdowanieWpisu(String wynikZserwera) {
+        boolean czyDodano = komunikator.dodajNaListe(wynikZserwera);
+
+        if(czyDodano){
+            adapter.notifyItemInserted(0);
+            Snackbar.make(findViewById(R.id.fab), "Post zostal dodany", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }else{
+            Snackbar.make(findViewById(R.id.fab), "Problem z polaczeniem internetowym!", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+    }
+
+    @Override
+    public void funkcjaZwrotnaTablicaPobranieWpisow2(String wynikZserwera) {
+        komunikator.stworzListeWpisow(wynikZserwera);
+
+        adapter.notifyDataSetChanged();
+       // opcjaEdycjiWmenu.setTitle("Filtruj");
+
+
+        Snackbar.make(findViewById(R.id.fab), "Posty zostaly wczytane ponownie", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    @Override
+    public void funkcjaZwrotnaDowajWpis(String wynikZserwera) {
+
+    }
+
+    @Override
+    public void funkcjaZwrotnaListujWpisyPortfela(String wynikZserwera) {
+
+    }
+
+    @Override
+    public void funkcjaZwrotnaDodajWpisyPortfela(String wynikZserwera) {
+
     }
 }
