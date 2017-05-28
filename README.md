@@ -5,6 +5,8 @@ Aplikacja pozwala również na kontrole swoich wydatków dzięki wirtualnemu "po
 
 Funkcje dostępne są po zarejestrowaniu się do aplikacji.
 
+
+![alt text](Users/aleksandrasalak/ekran.png)
 # Autorzy
 Aleksandra Salak
 
