@@ -14,11 +14,13 @@ public class ZarzadcaListy {
 
 
     ArrayList<Wpis> listaWpisow;
+    public ZarzadcaListy(){
+        listaWpisow = new ArrayList<Wpis>();
+    }
+
     public ArrayList<Wpis> stworzListeWpisow(String wynikWpisy) {
-
+        listaWpisow.clear();
         if(wynikWpisy.length()!=0) {
-            listaWpisow = new ArrayList<Wpis>();
-
             Document doc = null;
             try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

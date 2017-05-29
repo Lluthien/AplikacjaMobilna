@@ -13,11 +13,12 @@ import android.widget.EditText;
 
 import com.example.aleksandrasalak.aplikacjamobilna.R;
 import com.example.aleksandrasalak.aplikacjamobilna.Pozostale.Serwer;
+import com.example.aleksandrasalak.aplikacjamobilna.ZawolaniaZwrotne;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
-public class DodajWpisActivity extends AppCompatActivity {
+public class DodajWpisActivity extends AppCompatActivity implements ZawolaniaZwrotne{
     static final String TOKEN = "com.example.arek.TOKEN";
     HashMap<String, String> parametryZapytaniaPOST;
     Serwer serwer;
@@ -48,22 +49,33 @@ public class DodajWpisActivity extends AppCompatActivity {
         parametryZapytaniaPOST.put("temat",tytulStr);
         parametryZapytaniaPOST.put("tresc",trescStr);
 
-        serwer = new Serwer(DodajWpisActivity.this,DODAWANIE_WPISU_URL, parametryZapytaniaPOST);
-        String idNowegoWpisu="pusty";
-        try {
-            idNowegoWpisu = serwer.execute().get();
-            Log.d("logik", "idNowegoWpisu"+idNowegoWpisu);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        if(!idNowegoWpisu.equals("2x")&&!idNowegoWpisu.equals("2x2x")&&!idNowegoWpisu.equals("3x")
-                &&!idNowegoWpisu.equals("2x3x")&&!idNowegoWpisu.equals("2x2x3x")
-                &&!idNowegoWpisu.isEmpty()&&!idNowegoWpisu.equals("pusty")){
+        serwer = new Serwer(DodajWpisActivity.this,DODAWANIE_WPISU_URL, parametryZapytaniaPOST,this,"dw");
+
+        serwer.execute();
+
+    }
+
+    public void anuluj(View view){
+        onBackPressed();
+    }
+
+
+    public void funkcjaZwrotnaMainAutoryzacja(String wynikZserwera) {}
+    public void funkcjaZwrotnaMainLogowanie(String wynikZserwera) {}
+    public void funkcjaZwrotnaMainRejestracja(String wynikZserwera) {}
+    public void funkcjaZwrotnaTablicaPobranieWpisow(String wynikZserwera) {}
+    public void funkcjaZwrotnaTablicaZnajdowanieWpisu(String wynikZserwera) {}
+    public void funkcjaZwrotnaTablicaPobranieWpisow2(String wynikZserwera) {}
+
+    @Override
+    public void funkcjaZwrotnaDowajWpis(String wynikZserwera) {
+
+        if(!wynikZserwera.equals("2x")&&!wynikZserwera.equals("2x2x")&&!wynikZserwera.equals("3x")
+                &&!wynikZserwera.equals("2x3x")&&!wynikZserwera.equals("2x2x3x")
+                &&!wynikZserwera.isEmpty()&&!wynikZserwera.equals("pusty")){
 
             Intent returnIntent = new Intent();
-            returnIntent.putExtra("result",idNowegoWpisu);
+            returnIntent.putExtra("result",wynikZserwera);
             setResult(Activity.RESULT_OK,returnIntent);
             finish();
         }else{
@@ -73,10 +85,15 @@ public class DodajWpisActivity extends AppCompatActivity {
         }
     }
 
-    public void anuluj(View view){
-        onBackPressed();
+    @Override
+    public void funkcjaZwrotnaListujWpisyPortfela(String wynikZserwera) {
+
     }
 
+    @Override
+    public void funkcjaZwrotnaDodajWpisyPortfela(String wynikZserwera) {
+
+    }
 
 
 }

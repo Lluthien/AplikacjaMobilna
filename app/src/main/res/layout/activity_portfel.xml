@@ -15,7 +15,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.arek.testdrawera.MainActivity">
+        tools:context="com.example.aleksandrasalak.aplikacjamobilna.Portfel.PortfelActivity">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar1"
+                android:id="@+id/toolbar3"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
@@ -32,7 +32,28 @@
         </android.support.design.widget.AppBarLayout>
 
 
-        // TUTAJ NASZ TRESC
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context="com.example.aleksandrasalak.aplikacjamobilna.Portfel.PortfelActivity"
+            tools:showIn="@layout/activity_portfel">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvContacts1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab1"
             android:layout_width="wrap_content"

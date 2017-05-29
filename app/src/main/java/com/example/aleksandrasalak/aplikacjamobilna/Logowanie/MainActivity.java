@@ -13,11 +13,12 @@ import android.widget.EditText;
 import com.example.aleksandrasalak.aplikacjamobilna.R;
 import com.example.aleksandrasalak.aplikacjamobilna.Pozostale.Serwer;
 import com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow.TablicaActivity;
+import com.example.aleksandrasalak.aplikacjamobilna.ZawolaniaZwrotne;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ZawolaniaZwrotne {
     Serwer serwer;
     HashMap<String, String> parametryZapytaniaPOST;
     static final String TOKEN = "com.example.arek.TOKEN";
@@ -54,33 +55,14 @@ public class MainActivity extends AppCompatActivity {
             parametryZapytaniaPOST.put("kod",ustawionyToken);
 
             // Tworzymy obiekt Serwera - umożliwii on nam odpytanie zdalnego serwera o to czy uzytkownik ma konto
-            serwer = new Serwer(MainActivity.this,AUTORYZACJA_URL, parametryZapytaniaPOST);
+            serwer = new Serwer(MainActivity.this,AUTORYZACJA_URL, parametryZapytaniaPOST,this,"ma");
 
             String wynikAutoryzacji="0";
-            try {
 
             // Odpytujemy serwer o to czy zalogowany uzytkownik ma na pewno konto na serwerze
-                wynikAutoryzacji = serwer.execute().get();
+            serwer.execute();
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            // Sprawdzamy czy uzytkownik ma autoryzacje do korzystania z aplikacji
-            if(wynikAutoryzacji.equals("1")) {
-
-            // Jesli uzytkownik ma autoryzacje uruchamiamy aktywnosc z glowna aplikacja
-                tablicaActivity = new Intent(this, TablicaActivity.class);
-                startActivity(tablicaActivity);
-                finish();
-
-            }else {
-
-            // Jezeli uzytkownik nie ma autoryzacji ustawiamy w obecnej aktywnosci layout logowania i rejestracji
-                setContentView(R.layout.main_jesli_nie_zalogowany);
-            }
+            // Odpowiedz przyjdzie do funkcji zwrotnej na samym dole
         }else{
             // Jezeli TOKEN nie jest zapisany w pamieci urzadzenia ustawiamy w obecnej aktywnosci layout logowania i rejestracji
             setContentView(R.layout.main_jesli_nie_zalogowany);
@@ -107,33 +89,14 @@ public class MainActivity extends AppCompatActivity {
                 parametryZapytaniaPOST.put("haslo",hasloPodane1);
 
                 // Tworzymy obiekt serwera umozliwiajacy logowanie
-                serwer = new Serwer(MainActivity.this,LOGOWANIE_URL, parametryZapytaniaPOST);
+                serwer = new Serwer(MainActivity.this,LOGOWANIE_URL, parametryZapytaniaPOST,this,"ml");
 
                 // Wysylamy zapytanie o TOKEN
-                try {
-                    pobranyToken = serwer.execute().get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
 
-                // Sprawdzamy czy token jest poprawny, ma poprawny format
-                if(pobranyToken.length()!=32){
+                    serwer.execute();
+                // Odpowiedz przyjdzie do funkcji zwrotnej logowania
 
-                    // Jezeli format tokenu jest nieodpowiedni, na serwerze wystapil blad lub
-                    // uzytkownik nie posiada konta
-                    pokazAlert("Blad","Nie posiadasz konta, wpierw musisz je utworzyc!");
-                }else {
 
-                    // Gdy format tokenu jest poprawny ustawiamy go w preferencjach
-                    editor.putString(TOKEN, pobranyToken);
-                    editor.apply();
-
-                    // Uruchamiamy aktywnosc z glownym programem
-                    tablicaActivity = new Intent(this, TablicaActivity.class);
-                    startActivity(tablicaActivity);
-                }
                 break;
             case R.id.zarejestrujBtn:
                 // W przypadku gdy uzytkownik kliknal przycisk rejestracji
@@ -156,32 +119,14 @@ public class MainActivity extends AppCompatActivity {
                         parametryZapytaniaPOST.put("haslo",hasloPodane1);
 
                         // Tworzymy obiekt serwera umozliwiajacy rejestracje
-                        serwer = new Serwer(MainActivity.this,REJESTRACJA_URL, parametryZapytaniaPOST);
+                        serwer = new Serwer(MainActivity.this,REJESTRACJA_URL, parametryZapytaniaPOST, this, "mr");
 
                         // Wysylamy zapytanie o to by dodac uzytkownika
-                        try {
-                            pobranyToken = serwer.execute().get();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        }
 
-                        if(pobranyToken.length()!=32){
+                         serwer.execute();
 
-                            // Jezeli format tokenu jest nieodpowiedni, na serwerze wystapil blad lub
-                            // ktos inny posiada juz wprowadzony login
-                            pokazAlert("Blad","Ten login jest juz zajety!");
-                        }else {
 
-                            // Gdy format tokenu jest poprawny ustawiamy go w preferencjach
-                            editor.putString(TOKEN, pobranyToken);
-                            editor.apply();
 
-                            // Uruchamiamy aktywnosc z glownym programem
-                            tablicaActivity = new Intent(this, TablicaActivity.class);
-                            startActivity(tablicaActivity);
-                        }
                     }else{
                         pokazAlert("Podany login jest nie poprawny","Login powinien skladac sie ze znakow alfanumerycznych");
                     }
@@ -205,10 +150,7 @@ public void pokazAlert(String temat,String tresc){
             .show();
 }
 
-
-
-
-
+/*
     protected void onResume(){
         super.onResume();
 
@@ -230,39 +172,86 @@ public void pokazAlert(String temat,String tresc){
             // Ustawiamy parametr kod - jest to wspomniany juz TOKEN
             parametryZapytaniaPOST.put("kod",ustawionyToken);
             // Tworzymy obiekt Serwera - umożliwii on nam odpytanie zdalnego serwera o to czy uzytkownik ma konto
-            serwer = new Serwer(MainActivity.this,AUTORYZACJA_URL, parametryZapytaniaPOST);
+            serwer = new Serwer(MainActivity.this,AUTORYZACJA_URL, parametryZapytaniaPOST,this,"ma");
 
             String wynikAutoryzacji="0";
-            try {
 
-                // Odpytujemy serwer o to czy zalogowany uzytkownik ma na pewno konto na serwerze
-                wynikAutoryzacji = serwer.execute().get();
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            // Odpytujemy serwer o to czy zalogowany uzytkownik ma na pewno konto na serwerze
+            serwer.execute();
 
-            // Sprawdzamy czy uzytkownik ma autoryzacje do korzystania z aplikacji
-            if(wynikAutoryzacji.equals("1")) {
-
-                // Jesli uzytkownik ma autoryzacje uruchamiamy aktywnosc z glowna aplikacja
-                tablicaActivity = new Intent(this, TablicaActivity.class);
-                startActivity(tablicaActivity);
-
-            }else {
-
-                // Jezeli uzytkownik nie ma autoryzacji ustawiamy w obecnej aktywnosci layout logowania i rejestracji
-                setContentView(R.layout.main_jesli_nie_zalogowany);
-            }
         }else{
             // Jezeli TOKEN nie jest zapisany w pamieci urzadzenia ustawiamy w obecnej aktywnosci layout logowania i rejestracji
             setContentView(R.layout.main_jesli_nie_zalogowany);
         }
 
     }
+*/
 
+    @Override
+    public void funkcjaZwrotnaMainAutoryzacja(String wynikZserwera) {
+        // Sprawdzamy czy uzytkownik ma autoryzacje do korzystania z aplikacji
+        if(wynikZserwera.equals("1")) {
+
+            // Jesli uzytkownik ma autoryzacje uruchamiamy aktywnosc z glowna aplikacja
+            tablicaActivity = new Intent(this, TablicaActivity.class);
+            startActivity(tablicaActivity);
+            finish();
+
+        }else {
+
+            // Jezeli uzytkownik nie ma autoryzacji ustawiamy w obecnej aktywnosci layout logowania i rejestracji
+            setContentView(R.layout.main_jesli_nie_zalogowany);
+        }
+    }
+    public void funkcjaZwrotnaMainLogowanie(String wynikZserwera) {
+        // Sprawdzamy czy token jest poprawny, ma poprawny format
+        if(wynikZserwera.length()!=32){
+
+            // Jezeli format tokenu jest nieodpowiedni, na serwerze wystapil blad lub
+            // uzytkownik nie posiada konta
+            pokazAlert("Blad","Nie posiadasz konta, wpierw musisz je utworzyc!");
+        }else {
+
+            // Gdy format tokenu jest poprawny ustawiamy go w preferencjach
+            editor.putString(TOKEN, wynikZserwera);
+            editor.apply();
+
+            // Uruchamiamy aktywnosc z glownym programem
+            tablicaActivity = new Intent(this, TablicaActivity.class);
+            startActivity(tablicaActivity);
+        }
+
+    }
+    public void funkcjaZwrotnaMainRejestracja(String wynikZserwera) {
+        if(wynikZserwera.length()!=32){
+
+            // Jezeli format tokenu jest nieodpowiedni, na serwerze wystapil blad lub
+            // ktos inny posiada juz wprowadzony login
+            pokazAlert("Blad","Ten login jest juz zajety!");
+        }else {
+
+            // Gdy format tokenu jest poprawny ustawiamy go w preferencjach
+            editor.putString(TOKEN, wynikZserwera);
+            editor.apply();
+
+            // Uruchamiamy aktywnosc z glownym programem
+            tablicaActivity = new Intent(this, TablicaActivity.class);
+            startActivity(tablicaActivity);
+        }
+    }
+    public void funkcjaZwrotnaTablicaPobranieWpisow(String wynikZserwera) {}
+    public void funkcjaZwrotnaTablicaZnajdowanieWpisu(String wynikZserwera) {}
+    public void funkcjaZwrotnaTablicaPobranieWpisow2(String wynikZserwera) {}
+    public void funkcjaZwrotnaDowajWpis(String wynikZserwera) {}
+    public void funkcjaZwrotnaListujWpisyPortfela(String wynikZserwera) {
+
+    }
+
+    @Override
+    public void funkcjaZwrotnaDodajWpisyPortfela(String wynikZserwera) {
+
+    }
 
 
 }
