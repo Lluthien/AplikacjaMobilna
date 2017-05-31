@@ -38,7 +38,7 @@
         <activity
             android:name=".Pozostale.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".Portfel.WezDaneDoPortfela"></activity>
+        <activity android:name=".Portfel.DodawanieWpisowPortfelaActivity"></activity>
     </application>
 
 </manifest>

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingBottom="5dp"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp"
+
     android:contextClickable="true"
     android:paddingTop="5dp"
     android:elevation="2dp"
     android:id="@+id/kontener"
     android:background="@drawable/background_state_drawable"
-    android:paddingLeft="15dp"
     >
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -22,49 +25,164 @@
         card_view:cardCornerRadius="4dp"
 
         >
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
+            android:elevation="2dp"
             android:orientation="vertical"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:elevation="2dp"
 
             >
 
             <TextView
-                android:id="@+id/temat"
-                android:layout_width="match_parent"
+                android:id="@+id/trescLbl"
+                android:layout_width="55dp"
+                android:layout_height="25dp"
+                android:layout_alignBottom="@+id/tresc"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tematLbl"
+                android:layout_weight="1"
                 android:fontFamily="sans-serif"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"
                 android:textColor="@android:color/black"
-                android:layout_height="wrap_content"
+                tools:text=" Tresc:  " />
 
-                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/tematLbl"
+                android:layout_width="55dp"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/Autorlbl"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:labelFor="@+id/autor"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"
+                android:textColor="@android:color/black"
+                tools:text="Temat:" />
+
+            <TextView
+                android:id="@+id/Autorlbl"
+                android:layout_width="55dp"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:labelFor="@+id/autor"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"
+                android:textColor="@android:color/black"
+                tools:text=" Autor:  " />
+
+            <TextView
+
+                android:id="@+id/autor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/Autorlbl"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"
+                android:text="Autor"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/temat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tematLbl"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/autor"
+                android:layout_toRightOf="@+id/tematLbl"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:minHeight="55dp"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"
+                android:text="Temmaaaaat" />
 
             <TextView
                 android:id="@+id/tresc"
-                android:layout_width="match_parent"
-                android:fontFamily="sans-serif"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/data"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/temat"
+                android:layout_toRightOf="@+id/trescLbl"
                 android:layout_weight="1"
-                android:text="NOOOOOO" />
+                android:fontFamily="sans-serif"
+                android:maxWidth="15dp"
+                android:minHeight="55dp"
+                android:minLines="1"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"
+                android:text="tresc" />
+
+
+            <TextView
+                android:id="@+id/Datalbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:labelFor="@+id/data"
+
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"
+                android:text="Data dodania:  "
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:layout_alignParentBottom="true" />
 
             <TextView
                 android:id="@+id/data"
-                android:layout_width="match_parent"
-                android:fontFamily="sans-serif"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/Datalbl"
                 android:layout_weight="1"
-                android:text="Data x.x.x:" />
-
-            <TextView
-                android:id="@+id/autor"
-                android:layout_width="match_parent"
                 android:fontFamily="sans-serif"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Autor" />
-        </LinearLayout>
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"
+                android:text="xxxx.xx.xx"
+                android:textSize="14sp"
+                android:layout_toRightOf="@+id/Datalbl"
+                android:layout_toEndOf="@+id/Datalbl" />
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 </LinearLayout>

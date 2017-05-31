@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.aleksandrasalak.aplikacjamobilna.Portfel.WezDaneDoPortfela">
+    tools:context="com.example.aleksandrasalak.aplikacjamobilna.Portfel.DodawanieWpisowPortfelaActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -44,18 +44,16 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <Button
             android:id="@+id/dataTx"
-            android:layout_width="368dp"
-            android:layout_height="50dp"
+            android:layout_width="104dp"
+            android:layout_height="56dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+
             android:layout_marginTop="8dp"
-            android:hint="Data"
-            android:maxLength="500"
-            android:text=""
+            android:onClick="wybierzDate"
+            android:text="wybierz date"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/opisTx" />
 
         <EditText
@@ -66,6 +64,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:hint="Wartosc"
+            android:inputType="numberDecimal"
             android:maxLength="500"
             android:text=""
             app:layout_constraintLeft_toLeftOf="parent"
@@ -89,10 +88,35 @@
             android:layout_height="55dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="25dp"
-            android:onClick="anuluj"
+            android:onClick="anulujDodawanie"
             android:text="Anuluj"
-            app:layout_constraintRight_toLeftOf="@+id/dodajWpisBtn"
+            app:layout_constraintRight_toLeftOf="@+id/dodatBt"
             app:layout_constraintTop_toBottomOf="@+id/wartoscTx" />
+
+        <EditText
+            android:id="@+id/dataInp"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
+            android:layout_width="257dp"
+            android:layout_height="52dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="none"
+            android:shadowColor="@android:color/background_dark"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/wartoscTx"
+            app:layout_constraintHorizontal_bias="0.666"
+            app:layout_constraintLeft_toRightOf="@+id/dataTx"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/opisTx"
+            app:layout_constraintVertical_bias="0.666"
+            tools:layout_editor_absoluteX="117dp"
+            tools:layout_editor_absoluteY="74dp" />
 
     </android.support.constraint.ConstraintLayout>
 
