@@ -15,6 +15,8 @@
     android:elevation="2dp"
     android:id="@+id/kontener"
     android:background="@drawable/background_state_drawable"
+
+
     >
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -23,7 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         card_view:cardCornerRadius="4dp"
-
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
         >
 
         <RelativeLayout
@@ -31,70 +34,34 @@
             android:layout_height="250dp"
             android:elevation="2dp"
             android:orientation="vertical"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
+android:background="@color/colorCard"
 
             >
 
             <TextView
-                android:id="@+id/trescLbl"
-                android:layout_width="55dp"
-                android:layout_height="25dp"
-                android:layout_alignBottom="@+id/tresc"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/tematLbl"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif"
-                android:paddingBottom="1dp"
-                android:paddingLeft="1dp"
-                android:paddingRight="1dp"
-                android:paddingTop="1dp"
-                android:textColor="@android:color/black"
-                tools:text=" Tresc:  " />
-
-            <TextView
-                android:id="@+id/tematLbl"
-                android:layout_width="55dp"
-                android:layout_height="25dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/Autorlbl"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif"
-                android:labelFor="@+id/autor"
-                android:paddingBottom="1dp"
-                android:paddingLeft="1dp"
-                android:paddingRight="1dp"
-                android:paddingTop="1dp"
-                android:textColor="@android:color/black"
-                tools:text="Temat:" />
-
-            <TextView
                 android:id="@+id/Autorlbl"
-                android:layout_width="55dp"
+                android:layout_width="58dp"
                 android:layout_height="25dp"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:labelFor="@+id/autor"
                 android:paddingBottom="1dp"
-                android:paddingLeft="1dp"
+                android:paddingLeft="7dp"
                 android:paddingRight="1dp"
                 android:paddingTop="1dp"
+                android:text="Autor:"
                 android:textColor="@android:color/black"
-                tools:text=" Autor:  " />
+                android:textSize="18sp" />
 
             <TextView
 
                 android:id="@+id/autor"
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginLeft="2dp"
                 android:layout_toRightOf="@+id/Autorlbl"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
@@ -102,58 +69,99 @@
                 android:paddingLeft="1dp"
                 android:paddingRight="1dp"
                 android:paddingTop="1dp"
-                android:text="Autor"
-                android:textColor="@android:color/black" />
+                android:text="Autor Atorowaty"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/tematLbl"
+                android:layout_width="58dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignTop="@+id/Autorlbl"
+                android:layout_marginTop="25dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"
+                android:text="Temat:"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
 
             <TextView
                 android:id="@+id/temat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/tematLbl"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/autor"
-                android:layout_toRightOf="@+id/tematLbl"
+                android:layout_alignTop="@+id/autor"
+
+                android:layout_marginLeft="2dp"
+
+                android:layout_marginTop="25dp"
+                android:layout_toRightOf="@id/tematLbl"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:minHeight="55dp"
                 android:paddingBottom="1dp"
                 android:paddingLeft="1dp"
                 android:paddingRight="1dp"
                 android:paddingTop="1dp"
-                android:text="Temmaaaaat" />
+                android:text="Temmaaaaat"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/trescLbl"
+                android:layout_width="58dp"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+
+                android:layout_alignTop="@id/tematLbl"
+                android:layout_marginTop="25dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:paddingBottom="1dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"
+                android:text="Tresc: "
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tresc"
-                android:layout_width="20dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/data"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/temat"
+                android:layout_alignTop="@id/temat"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="25dp"
+
                 android:layout_toRightOf="@+id/trescLbl"
                 android:layout_weight="1"
+
+                android:clickable="false"
                 android:fontFamily="sans-serif"
-                android:maxWidth="15dp"
-                android:minHeight="55dp"
                 android:minLines="1"
                 android:paddingBottom="1dp"
                 android:paddingLeft="1dp"
                 android:paddingRight="1dp"
                 android:paddingTop="1dp"
-                android:text="tresc" />
+                android:text="tresc"
+                android:textSize="18sp" />
 
 
             <TextView
                 android:id="@+id/Datalbl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif"
-                android:labelFor="@+id/data"
+                android:layout_alignParentBottom="true"
 
+                android:layout_alignParentLeft="true"
+                android:layout_weight="1"
+
+                android:fontFamily="sans-serif"
                 android:paddingBottom="1dp"
                 android:paddingLeft="1dp"
                 android:paddingRight="1dp"
@@ -161,17 +169,15 @@
                 android:text="Data dodania:  "
                 android:textAlignment="viewStart"
                 android:textColor="@android:color/black"
-                android:textSize="14sp"
-                android:layout_alignParentBottom="true" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/data"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/Datalbl"
+                android:layout_marginLeft="0dp"
+                android:layout_toRightOf="@+id/Datalbl"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
                 android:paddingBottom="1dp"
@@ -179,9 +185,7 @@
                 android:paddingRight="1dp"
                 android:paddingTop="1dp"
                 android:text="xxxx.xx.xx"
-                android:textSize="14sp"
-                android:layout_toRightOf="@+id/Datalbl"
-                android:layout_toEndOf="@+id/Datalbl" />
+                android:textSize="14sp" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -100,18 +101,30 @@ public class DodawanieWpisowPortfelaActivity extends AppCompatActivity implement
         ustawionyToken = sharedPref.getString(TOKEN, "Brak");
         opis = ((EditText)findViewById(R.id.opisTx)).getText().toString();
         wartosc = ((EditText)findViewById(R.id.wartoscTx)).getText().toString();
-       // data = ((EditText)findViewById(R.id.dataTx)).getText().toString();
+        data = dataEdit.getText().toString();
 
-        parametryZapytaniaPOST = new HashMap<String, String>();
-        parametryZapytaniaPOST.put("kod",ustawionyToken);
-        parametryZapytaniaPOST.put("opis", opis);
-        parametryZapytaniaPOST.put("wartosc",wartosc );
-        parametryZapytaniaPOST.put("data",data );
-
-        serwer = new Serwer(DodawanieWpisowPortfelaActivity.this,WYSYLANIE_WPISOW_PORTFELA_URL, parametryZapytaniaPOST,DodawanieWpisowPortfelaActivity.this,"ppw2");
-        serwer.execute();
-
-
+        if(!opis.equals("")) {
+            if(!data.equals("")) {
+                if(!wartosc.equals("")) {
+                    parametryZapytaniaPOST = new HashMap<String, String>();
+                    parametryZapytaniaPOST.put("kod", ustawionyToken);
+                    parametryZapytaniaPOST.put("opis", opis);
+                    parametryZapytaniaPOST.put("wartosc", wartosc);
+                    parametryZapytaniaPOST.put("data", data);
+                    serwer = new Serwer(DodawanieWpisowPortfelaActivity.this, WYSYLANIE_WPISOW_PORTFELA_URL, parametryZapytaniaPOST, DodawanieWpisowPortfelaActivity.this, "ppw2");
+                    serwer.execute();
+                }else{
+                    Snackbar.make(findViewById(R.id.anulujBt), "Nalezy wprowadzic wartosc", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            }else{
+                Snackbar.make(findViewById(R.id.anulujBt), "Nalezy wybrac date", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        }else{
+            Snackbar.make(findViewById(R.id.anulujBt), "Nalezy dodac opis", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
     }
 
     public void anulujDodawanie(View view){
