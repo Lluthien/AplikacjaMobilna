@@ -38,9 +38,14 @@ public class MainActivity extends AppCompatActivity implements ZawolaniaZwrotne 
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
     // Stale z linkami do API, z ich wykorzystaniem tworzone sa zapytania do serwera zdalnego
-    private static final String AUTORYZACJA_URL="http://enecio.heliohost.org/autoryzuj.php/";
-    private static final String REJESTRACJA_URL="http://enecio.heliohost.org/rejestracja.php/";
-    private static final String LOGOWANIE_URL="http://enecio.heliohost.org/logowanie.php/";
+ //   private static final String AUTORYZACJA_URL="http://enecio.heliohost.org/autoryzuj.php/";
+ //   private static final String REJESTRACJA_URL="http://enecio.heliohost.org/rejestracja.php/";
+ //   private static final String LOGOWANIE_URL="http://enecio.heliohost.org/logowanie.php/";
+    // Serwer alternatywny
+    private static final String AUTORYZACJA_URL="http://enecio.000webhostapp.com/autoryzuj.php/";
+    private static final String REJESTRACJA_URL="http://enecio.000webhostapp.com/rejestracja.php/";
+    private static final String LOGOWANIE_URL="http://enecio.000webhostapp.com/logowanie.php/";
+
     // Pole przechowujace referencje intencji do stworzenia atywnosci TablicaActivity
     private Intent tablicaActivity;
     // Na poczatku zycia aktywnosci

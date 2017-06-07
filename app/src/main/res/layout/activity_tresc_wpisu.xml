@@ -2,6 +2,8 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/parchment1"
+
     android:layout_height="match_parent">
 
 
@@ -28,6 +30,7 @@
 
             <TextView
                 android:id="@+id/temat1"
+                android:transitionName="tematTrans"
                 android:paddingTop="2sp"
                 android:paddingLeft="2sp"
                 android:paddingRight="2sp"
@@ -58,6 +61,8 @@
 
             <TextView
                 android:id="@+id/tresc1"
+                android:transitionName="trescTrans"
+
                 android:paddingTop="2sp"
                 android:paddingLeft="2sp"
                 android:paddingRight="2sp"
@@ -88,6 +93,8 @@
 
             <TextView
                 android:id="@+id/data1"
+                android:transitionName="dataTrans"
+
                 android:paddingTop="2sp"
                 android:paddingLeft="2sp"
                 android:paddingRight="2sp"
@@ -117,6 +124,8 @@
 
             <TextView
                 android:id="@+id/autor1"
+                android:transitionName="autorTrans"
+
                 android:paddingTop="2sp"
                 android:paddingLeft="2sp"
                 android:paddingRight="2sp"

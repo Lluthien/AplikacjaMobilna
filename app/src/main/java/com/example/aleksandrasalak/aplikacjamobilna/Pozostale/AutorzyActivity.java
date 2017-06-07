@@ -96,11 +96,11 @@ public class AutorzyActivity extends AppCompatActivity
             finish();
         } else if (id == R.id.nav_portfel) {
             int requestCode = 4;
-            Intent portfelIntent = new Intent(AutorzyActivity.this,PortfelActivity.class);
+            Intent portfelIntent = new Intent(this,PortfelActivity.class);
             startActivityForResult(portfelIntent,requestCode);
         } else if (id == R.id.autorzy) {
-           // DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
-           // drawer.closeDrawer(GravityCompat.START);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout3);
+            drawer.closeDrawer(GravityCompat.START);
         }
 
 

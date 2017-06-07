@@ -5,9 +5,9 @@ public class Wpis {
     private String temat;
     private String autor;
     private String data;
-    private String idSrv;
+    private long idSrv;
 
-    public Wpis(String temat, String tresc, String autor, String data, String idSrv) {
+    public Wpis(String temat, String tresc, String autor, String data, long idSrv) {
         this.tresc = tresc;
         this.autor = autor;
         this.temat=temat;
@@ -27,9 +27,17 @@ public class Wpis {
     public String pobierzDate() {
         return data;
     }
-    public String pobierzId() {
-        return data;
+    public long pobierzId() {
+        return idSrv;
     }
+
+    public String pobierzTrescShort() {
+        return tresc;
+    }
+    public String pobierzTematShort() {
+        return temat;
+    }
+
 
     //private static int idOstatniegoWpisu = 0;
 

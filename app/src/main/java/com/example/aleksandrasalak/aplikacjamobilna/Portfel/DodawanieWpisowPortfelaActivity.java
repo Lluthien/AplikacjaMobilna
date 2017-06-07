@@ -22,9 +22,11 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class DodawanieWpisowPortfelaActivity extends AppCompatActivity implements ZawolaniaZwrotne {
-    private static final String WYSYLANIE_WPISOW_PORTFELA_URL="http://enecio.heliohost.org/dodajpozycjeportfela.php/";
+    //private static final String WYSYLANIE_WPISOW_PORTFELA_URL="http://enecio.heliohost.org/dodajpozycjeportfela.php/";
+    private static final String WYSYLANIE_WPISOW_PORTFELA_URL="http://enecio.000webhostapp.com/dodajpozycjeportfela.php/";
 
-    private String wybranaPrzezUzytData;
+
+   // private String wybranaPrzezUzytData;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
     private Serwer serwer;

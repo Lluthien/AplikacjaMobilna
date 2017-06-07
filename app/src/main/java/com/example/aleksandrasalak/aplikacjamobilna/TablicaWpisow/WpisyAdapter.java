@@ -31,6 +31,7 @@ public class WpisyAdapter extends RecyclerView.Adapter<WpisyAdapter.ViewHolder> 
     public WpisyAdapter(Context context, List<Wpis> wpisy) {
         listaWpisow = wpisy;
         mContext = context;
+        setHasStableIds(true);
     }
 
     private Context getContext() {
@@ -52,9 +53,19 @@ public class WpisyAdapter extends RecyclerView.Adapter<WpisyAdapter.ViewHolder> 
     public void onBindViewHolder(WpisyAdapter.ViewHolder viewHolder, int position) {
         Wpis wpis = listaWpisow.get(position);
 
-        viewHolder.tematWpisuTextView.setText(wpis.pobierzTemat());
+        if(wpis.pobierzTemat().length()>=35)
+            viewHolder.tematWpisuTextView.setText(wpis.pobierzTemat().substring(0,34)+"...");
+        else
+            viewHolder.tematWpisuTextView.setText(wpis.pobierzTemat());
+
+
+
         viewHolder.autorWpisuTextView.setText(wpis.pobierzAutora());
-        viewHolder.trescWpisuTextView.setText(wpis.pobierzTresc());
+
+        if(wpis.pobierzTresc().length()>=236)
+            viewHolder.trescWpisuTextView.setText(wpis.pobierzTresc().substring(0,235)+"(...)");
+        else
+            viewHolder.trescWpisuTextView.setText(wpis.pobierzTresc());
         viewHolder.dataWpisuTextView.setText(wpis.pobierzDate());
     }
 
@@ -66,7 +77,7 @@ public class WpisyAdapter extends RecyclerView.Adapter<WpisyAdapter.ViewHolder> 
 
 
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tematWpisuTextView;
         public TextView trescWpisuTextView;
@@ -80,17 +91,36 @@ public class WpisyAdapter extends RecyclerView.Adapter<WpisyAdapter.ViewHolder> 
             trescWpisuTextView = (TextView) itemView.findViewById(R.id.tresc);
             autorWpisuTextView = (TextView) itemView.findViewById(R.id.autor);
             dataWpisuTextView = (TextView) itemView.findViewById(R.id.data);
-
             kontener = itemView.findViewById(R.id.kontener);
-            kontener.setOnClickListener(this);
+            kontener.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(view.getId()==R.id.kontener){
+                        itemClickCallback.onItemClick(getAdapterPosition());
+                    }
+                }
+            });
+        }
 
+        public View pobierzTematView(){
+            return tematWpisuTextView;
         }
-        public void onClick(View view){
-            if(view.getId()==R.id.kontener){
-                itemClickCallback.onItemClick(getAdapterPosition());
-            }
+        public View pobierzTrescView(){
+            return trescWpisuTextView;
         }
+        public View pobierzAutorView(){
+            return dataWpisuTextView;
+        }
+        public View pobierzDataView(){
+            return autorWpisuTextView;
+        }
+
+        public long getItemId(int position) {
+            return listaWpisow.get(position).pobierzId();
+        }
+
+
+
     }
-
 
 }

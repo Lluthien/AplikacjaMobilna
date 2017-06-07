@@ -15,6 +15,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -45,6 +48,16 @@ public class TablicaActivity extends AppCompatActivity
         implements WpisyAdapter.ItemClickCallback,
         NavigationView.OnNavigationItemSelectedListener, ZawolaniaZwrotne{
 
+    // Lacza do API serwisu podawane beda do obiektu serwer klasy Serwer z parametrami zapytania
+    // kolejno lacze umozliwiajace pobranie wpisow uzytkownikow
+    //static final String POBIERANIE_WPISOW_URL="http://enecio.heliohost.org/pobierzwpisy.php/";
+    // i lacze umozliwiajace pobranie danego wpisu - z wykorzystaniem jego id
+    //static final String ZNAJDOWANIE_WPISOW_URL="http://enecio.heliohost.org/znajdzpostpoid.php/";
+    // Serwer alternatywny
+    static final String POBIERANIE_WPISOW_URL="http://enecio.000webhostapp.com/pobierzwpisy.php/";
+    static final String ZNAJDOWANIE_WPISOW_URL="http://enecio.000webhostapp.com/znajdzpostpoid.php/";
+
+
     // Szereg stalych - klucze ktore przydadza sie pozniej przy przesylaniu danych wpisu
     // do aktywnosci odpowiedzialnej za jego wyswietlenie
     private static final String BUNDLE_EXTRAS = "BUNDLE_EXTRAS";
@@ -59,11 +72,7 @@ public class TablicaActivity extends AppCompatActivity
     SharedPreferences.Editor editor;
     // Adapter wykorzystany dalej, obsluguje reprezentacje listy w GUI aplikacji
     WpisyAdapter adapter;
-    // Lacza do API serwisu podawane beda do obiektu serwer klasy Serwer z parametrami zapytania
-    // kolejno lacze umozliwiajace pobranie wpisow uzytkownikow
-    static final String POBIERANIE_WPISOW_URL="http://enecio.heliohost.org/pobierzwpisy.php/";
-    // i lacze umozliwiajace pobranie danego wpisu - z wykorzystaniem jego id
-    static final String ZNAJDOWANIE_WPISOW_URL="http://enecio.heliohost.org/znajdzpostpoid.php/";
+
     // Mapa do ktorej wprowadzone beda parametry zapytania
     HashMap<String, String> parametryZapytaniaPOST;
     // Pole z referencja do klasy serwer, obslugujacej zapytania do serwera
@@ -263,9 +272,9 @@ public class TablicaActivity extends AppCompatActivity
     }
 
     // Przy kliknieciu danego wpisu na liscie wpisow w programie
-    public void onItemClick(int p) {
+    public void onItemClick(int indexWpisuNaLiscie) {
         // Pobierana jest referencja do kliknietego wpisu
-        Wpis wpis = (Wpis) listaWpisow.get(p);
+        Wpis wpis = (Wpis) listaWpisow.get(indexWpisuNaLiscie);
         // Tworzona jest nowa intencja dzieki ktorej wystartowana bedzie aktywnosc z trescia wpisu
         Intent in = new Intent(this,TrescWpisuActivity.class);
         // Tworzony jest obiekt typu bundle, ktory umozliwy przeslanie danych do rzeczonej aktywnosci
@@ -277,8 +286,23 @@ public class TablicaActivity extends AppCompatActivity
         extras.putString(EXTRA_DATA,wpis.pobierzDate());
         // Obiekt nastepnie umieszczany jest w intencji
         in.putExtra(BUNDLE_EXTRAS, extras);
+
+        RecyclerView rvListaWpisowGUI = (RecyclerView) findViewById(R.id.rvContacts);
+
+        WpisyAdapter.ViewHolder viewHolder = (WpisyAdapter.ViewHolder) rvListaWpisowGUI.findViewHolderForAdapterPosition(indexWpisuNaLiscie);
+
+
+        Pair<View, String> titlePair = Pair.create(viewHolder.pobierzTematView(), "tematTrans");
+        Pair<View, String> datePair = Pair.create(viewHolder.pobierzDataView(), "dataTrans");
+        Pair<View, String> bodyPair = Pair.create(viewHolder.pobierzTrescView(), "trescTrans");
+        Pair<View, String> autorPair = Pair.create(viewHolder.pobierzAutorView(), "autorTrans");
+        viewHolder.pobierzAutorView();
+
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,titlePair,datePair,bodyPair,autorPair);
+        ActivityCompat.startActivity(this, in, options.toBundle());
+
         // Z wykorzystaniem intencji startowana jest nowa aktywnosc
-        startActivity(in);
+       // startActivity(in);
     }
 
     // W momencie nacisniecia w urzadzeniu przycisku wstecz
@@ -355,6 +379,9 @@ public class TablicaActivity extends AppCompatActivity
         // Adapter konieczny jest liscie tworzonej z wykorzystaniem RecyclerView, wiecej na ten temat
         // w kodzie klasy WpisyAdapter
         adapter = new WpisyAdapter(this, listaWpisow);
+        // Przypisywany jest obiekt zajmujacy sie obsluga klikniecia elementu na liscie
+        // w tym przypadku jest to obecny obiekt
+        adapter.setItemClickCallback(this);
         // Ustawiamy adapter dla elementu typu RecyclerView - reprezentacji listy w aplikacji
         rvListaWpisowGUI.setAdapter(adapter);
         // Ustawiany jest manager - odpowiada on za rozklad elementow w interfejsie
@@ -364,9 +391,7 @@ public class TablicaActivity extends AppCompatActivity
         SlideInUpAnimator animator = new SlideInUpAnimator(new OvershootInterpolator(1f));
         // Animator jest ustawiany dla listy
         rvListaWpisowGUI.setItemAnimator(animator);
-        // Przypisywany jest obiekt zajmujacy sie obsluga klikniecia elementu na liscie
-        // w tym przypadku jest to obecny obiekt
-        adapter.setItemClickCallback(this);
+
     }
 
     // Funkcja zwrotna - callbacs wolana przez serwer z trescia pojedynczego wpisu, pobranego na

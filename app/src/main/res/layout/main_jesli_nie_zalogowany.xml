@@ -166,5 +166,15 @@
             android:layout_alignLeft="@+id/hasloEdit"
             android:layout_alignStart="@+id/hasloEdit" />
 
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/lock"
+            android:layout_below="@+id/zalogujBtn"
+            android:layout_alignLeft="@+id/haslo2Edit"
+            android:layout_alignStart="@+id/haslo2Edit"
+            android:layout_alignBottom="@+id/haslo2Edit" />
+
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

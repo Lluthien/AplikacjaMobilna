@@ -63,17 +63,17 @@ public class ZarzadcaPortfela {
                             .getTextContent();
                 }
 
-                listaWpisowPortfela.add(new WpisPortfela(Html.fromHtml(opis).toString(), data,
+                listaWpisowPortfela.add(new WpisPortfela(Html.fromHtml(opis).toString(), data.substring(0,10),
                         id, wartosc));
             }
-
-            return listaWpisowPortfela;
+        }else if(wynikWpisy.equals("4")) {
+            listaWpisowPortfela.add(new WpisPortfela("Brak wpisow portfela","","",""));
         }else{
-            listaWpisowPortfela = new ArrayList<WpisPortfela>();
             listaWpisowPortfela.add(new WpisPortfela("Blad podczas laczenia z serwerem","blad","blad","blad"));
-            return listaWpisowPortfela;
 
         }
+        return listaWpisowPortfela;
+
     }
 
     public boolean dodajDoPortfela(String data,String opis,String wartosc,String id){

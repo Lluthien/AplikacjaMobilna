@@ -1,16 +1,9 @@
 package com.example.aleksandrasalak.aplikacjamobilna.Pozostale;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-
-import com.example.aleksandrasalak.aplikacjamobilna.R;
-import com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow.TablicaActivity;
 import com.example.aleksandrasalak.aplikacjamobilna.ZawolaniaZwrotne;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -109,8 +102,8 @@ public class Serwer extends AsyncTask<Void, Void, Void>{
             url = new URL(urlRzadaniaStr);
 
             HttpURLConnection polaczenie = (HttpURLConnection) url.openConnection();
-            polaczenie.setReadTimeout(15000);
-            polaczenie.setConnectTimeout(15000);
+            polaczenie.setReadTimeout(22000);
+            polaczenie.setConnectTimeout(22000);
             polaczenie.setRequestMethod("GET");
             polaczenie.setDoInput(true);
             polaczenie.setDoOutput(true);

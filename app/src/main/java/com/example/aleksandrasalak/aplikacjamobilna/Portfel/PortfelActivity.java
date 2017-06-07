@@ -37,6 +37,12 @@ public class PortfelActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         ZawolaniaZwrotne {
 
+    // Stala przechowujaca adres do serwera konieczny do tworzenia zapytan do pobrania wpisow portfela
+    //private static final String POBIERANIE_WPISOW_PORTFELA_URL="http://enecio.heliohost.org/pobierzportfel.php/";
+    // Alternatywny serwer
+    private static final String POBIERANIE_WPISOW_PORTFELA_URL="http://enecio.000webhostapp.com/pobierzportfel.php/";
+
+
     // Pole przechowujace referencje do mapy parametrow zapytania
     private HashMap<String, String> parametryZapytaniaPOST;
     // Pole przechowujace referencje do obiektu odpowiedzialnego za komunikacje z serwerem
@@ -53,8 +59,7 @@ public class PortfelActivity extends AppCompatActivity
     private SharedPreferences.Editor editor;
     // Pole przechowujace adapter reprezentacji listy wpisow portfela w GUI - RecyclerView
     private PortfelAdapter adapterPortfela;
-    // Stala przechowujaca adres do serwera konieczny do tworzenia zapytan do pobrania wpisow portfela
-    private static final String POBIERANIE_WPISOW_PORTFELA_URL="http://enecio.heliohost.org/pobierzportfel.php/";
+
     // Pole ktore bedzie przechowywac referencje do tej aktywnosci
     private PortfelActivity taAktywnosc;
 
@@ -173,11 +178,10 @@ public class PortfelActivity extends AppCompatActivity
         int id = item.getItemId();
         // Jezeli kliknieto opcje tablicy
         if (id == R.id.nav_tablica) {
-            //
             finish();
         } else if (id == R.id.nav_portfel) {
-            //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
-           // drawer.closeDrawer(GravityCompat.START);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
+            drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.autorzy) {
             int requestCode = 3;
             Intent autorzyIntent = new Intent(PortfelActivity.this,AutorzyActivity.class);

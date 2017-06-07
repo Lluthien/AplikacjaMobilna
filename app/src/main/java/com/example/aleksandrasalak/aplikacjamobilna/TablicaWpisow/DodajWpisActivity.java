@@ -19,12 +19,16 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 public class DodajWpisActivity extends AppCompatActivity implements ZawolaniaZwrotne{
+    //static final String DODAWANIE_WPISU_URL="http://enecio.heliohost.org/dodajwpis.php/";
+    static final String DODAWANIE_WPISU_URL="http://enecio.000webhostapp.com/dodajwpis.php/";
+
+
     static final String TOKEN = "com.example.arek.TOKEN";
     HashMap<String, String> parametryZapytaniaPOST;
     Serwer serwer;
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
-    static final String DODAWANIE_WPISU_URL="http://enecio.heliohost.org/dodajwpis.php/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,15 +89,8 @@ public class DodajWpisActivity extends AppCompatActivity implements ZawolaniaZwr
         }
     }
 
-    @Override
-    public void funkcjaZwrotnaListujWpisyPortfela(String wynikZserwera) {
-
-    }
-
-    @Override
-    public void funkcjaZwrotnaDodajWpisyPortfela(String wynikZserwera) {
-
-    }
+    public void funkcjaZwrotnaListujWpisyPortfela(String wynikZserwera) {}
+    public void funkcjaZwrotnaDodajWpisyPortfela(String wynikZserwera) {}
 
 
 }

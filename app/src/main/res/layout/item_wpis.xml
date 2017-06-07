@@ -10,6 +10,7 @@
     android:paddingRight="5dp"
     android:paddingLeft="5dp"
 
+
     android:contextClickable="true"
     android:paddingTop="5dp"
     android:elevation="2dp"
@@ -26,6 +27,7 @@
         android:layout_gravity="center"
         card_view:cardCornerRadius="4dp"
         android:paddingBottom="5dp"
+
         android:paddingTop="5dp"
         >
 

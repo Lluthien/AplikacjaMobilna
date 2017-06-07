@@ -1,7 +1,9 @@
 package com.example.aleksandrasalak.aplikacjamobilna.TablicaWpisow;
 
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.aleksandrasalak.aplikacjamobilna.R;
@@ -23,5 +25,13 @@ public class TrescWpisuActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.data1)).setText(extras.getString(EXTRA_DATA));
         ((TextView)findViewById(R.id.tresc1)).setText(extras.getString(EXTRA_TRESC));
 
+    }
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        int id = menuItem.getItemId();
+        if (id == android.R.id.home) {
+            ActivityCompat.finishAfterTransition(this);
+            return true;
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 }

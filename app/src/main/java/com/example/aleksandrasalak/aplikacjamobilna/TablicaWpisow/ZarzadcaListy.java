@@ -67,13 +67,13 @@ public class ZarzadcaListy {
                 }
 
                 listaWpisow.add(new Wpis(Html.fromHtml(temat).toString(), Html.fromHtml(tresc).toString(),
-                                uzytkownik, data, id));
+                                uzytkownik, data, Long.parseLong(id.trim())));
             }
 
             return listaWpisow;
         }else{
             listaWpisow = new ArrayList<Wpis>();
-            listaWpisow.add(new Wpis("Blad podczas laczenia z serwerem","blad","blad","blad","blad"));
+            listaWpisow.add(new Wpis("Blad podczas laczenia z serwerem","blad","blad","blad",9999));
             return listaWpisow;
 
         }
@@ -128,7 +128,7 @@ public class ZarzadcaListy {
                         .getTextContent();
             }
 
-            listaWpisow.add(0, new Wpis(Html.fromHtml(temat).toString(), Html.fromHtml(tresc).toString(), uzytkownik, data, id));
+            listaWpisow.add(0, new Wpis(Html.fromHtml(temat).toString(), Html.fromHtml(tresc).toString(), uzytkownik, data, Long.parseLong(id.trim())));
             return true;
         }else{
             Log.d("logik", "zarzadca dostal pusty");
