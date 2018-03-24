@@ -66,14 +66,16 @@ public class ZarzadcaListy {
                             .getTextContent();
                 }
 
+               // listaWpisow.add(new Wpis(Html.fromHtml(temat).toString(), Html.fromHtml(tresc).toString(),
+               //                 uzytkownik, data, Long.parseLong(id.trim())));
                 listaWpisow.add(new Wpis(Html.fromHtml(temat).toString(), Html.fromHtml(tresc).toString(),
-                                uzytkownik, data, Long.parseLong(id.trim())));
+                                         uzytkownik, data, id));
             }
 
             return listaWpisow;
         }else{
             listaWpisow = new ArrayList<Wpis>();
-            listaWpisow.add(new Wpis("Blad podczas laczenia z serwerem","blad","blad","blad",9999));
+            listaWpisow.add(new Wpis("Blad podczas laczenia z serwerem","blad","blad","blad","9999"));
             return listaWpisow;
 
         }
@@ -128,7 +130,9 @@ public class ZarzadcaListy {
                         .getTextContent();
             }
 
-            listaWpisow.add(0, new Wpis(Html.fromHtml(temat).toString(), Html.fromHtml(tresc).toString(), uzytkownik, data, Long.parseLong(id.trim())));
+            //listaWpisow.add(0, new Wpis(Html.fromHtml(temat).toString(), Html.fromHtml(tresc).toString(), uzytkownik, data, Long.parseLong(id.trim())));
+            listaWpisow.add(0, new Wpis(Html.fromHtml(temat).toString(), Html.fromHtml(tresc).toString(), uzytkownik, data, id));
+
             return true;
         }else{
             Log.d("logik", "zarzadca dostal pusty");

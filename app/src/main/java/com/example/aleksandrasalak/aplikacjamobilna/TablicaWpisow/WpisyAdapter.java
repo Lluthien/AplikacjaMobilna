@@ -28,6 +28,7 @@ public class WpisyAdapter extends RecyclerView.Adapter<WpisyAdapter.ViewHolder> 
         this.itemClickCallback=itemClickCallback;
     }
 
+    public WpisyAdapter(){}
     public WpisyAdapter(Context context, List<Wpis> wpisy) {
         listaWpisow = wpisy;
         mContext = context;
@@ -53,8 +54,8 @@ public class WpisyAdapter extends RecyclerView.Adapter<WpisyAdapter.ViewHolder> 
     public void onBindViewHolder(WpisyAdapter.ViewHolder viewHolder, int position) {
         Wpis wpis = listaWpisow.get(position);
 
-        if(wpis.pobierzTemat().length()>=35)
-            viewHolder.tematWpisuTextView.setText(wpis.pobierzTemat().substring(0,34)+"...");
+        if(wpis.pobierzTemat().length()>=25)
+            viewHolder.tematWpisuTextView.setText(wpis.pobierzTemat().substring(0,25)+"...");
         else
             viewHolder.tematWpisuTextView.setText(wpis.pobierzTemat());
 
@@ -62,8 +63,8 @@ public class WpisyAdapter extends RecyclerView.Adapter<WpisyAdapter.ViewHolder> 
 
         viewHolder.autorWpisuTextView.setText(wpis.pobierzAutora());
 
-        if(wpis.pobierzTresc().length()>=236)
-            viewHolder.trescWpisuTextView.setText(wpis.pobierzTresc().substring(0,235)+"(...)");
+        if(wpis.pobierzTresc().length()>=205)
+            viewHolder.trescWpisuTextView.setText(wpis.pobierzTresc().substring(0,205)+"(...)");
         else
             viewHolder.trescWpisuTextView.setText(wpis.pobierzTresc());
         viewHolder.dataWpisuTextView.setText(wpis.pobierzDate());
@@ -115,7 +116,7 @@ public class WpisyAdapter extends RecyclerView.Adapter<WpisyAdapter.ViewHolder> 
             return autorWpisuTextView;
         }
 
-        public long getItemId(int position) {
+        public String getItemId(int position) {
             return listaWpisow.get(position).pobierzId();
         }
 

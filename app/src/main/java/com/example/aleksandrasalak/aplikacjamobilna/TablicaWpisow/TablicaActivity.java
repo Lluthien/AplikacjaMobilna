@@ -86,6 +86,9 @@ public class TablicaActivity extends AppCompatActivity
     // Metoda wolana przy tworzeniu aktywnosci
     protected void onCreate(Bundle savedInstanceState) {
 
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tablica);
         // Strorzeni i pobranie obiektow obslugi prejerencji
@@ -371,7 +374,7 @@ public class TablicaActivity extends AppCompatActivity
         // wyswietlanie listy typu RecyclerView
         RecyclerView rvListaWpisowGUI = (RecyclerView) findViewById(R.id.rvContacts);
         // Utworzenie obiekty typu zarzadca listy - połączenie M i C jesli bylby to
-        // wzorzec MVC
+        // wzorzec MVC(RecyclerView)
         komunikator = new ZarzadcaListy();
         // Utworzenie z wykorzystaniem wspomnianego wyzej obiekty listy wpisow na podstawie kodu
         listaWpisow = komunikator.stworzListeWpisow(wynikZserwera);
